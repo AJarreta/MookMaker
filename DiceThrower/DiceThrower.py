@@ -12,4 +12,9 @@ def DiceThrow(times, sides):
     return result
 
 window = Tkinter.Tk()
-mainframe = 
+window.title("Dice Thrower")
+mainframe = ttk.Frame(window, padding='3 3 12 12')
+mainframe.grid(
+window.columnconfigure(0, 1)
+window.rowconfigure(0, 1)
+window.mainloop()
