@@ -22,6 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="charclass.py" />
     <Compile Include="MookMaker.py" />
   </ItemGroup>
   <PropertyGroup>
