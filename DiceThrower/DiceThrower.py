@@ -2,19 +2,39 @@ import random
 import Tkinter
 import ttk
 
-def DiceThrow(times, sides):
-    result = 0
+def DiceThrow(*args):
     try:
-        for x in times:
+        times = int(NumberOfDice.get())
+        sides = int(NumberOfSides.get())
+        result = 0
+        for x in range(times):
             result += random.randint(1, sides)
+        ThrowResult.set(result)
     except ValueError:
         pass
-    return result
 
 window = Tkinter.Tk()
 window.title("Dice Thrower")
+
 mainframe = ttk.Frame(window, padding='3 3 12 12')
-mainframe.grid(
-window.columnconfigure(0, 1)
-window.rowconfigure(0, 1)
+mainframe.grid(column=0, row=0, sticky=NSEW)
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
+
+NumberOfDice = Tkinter.IntVar()
+NumberOfSides = Tkinter.IntVar()
+ThrowResult = Tkinter.IntVar()
+
+DiceInput = ttk.Entry(window, width=4, textvariable=NumberOfDice)
+DiceInput.grid(column=1, row=1, sticky=E)
+
+ttk.Label(window, textvariable="d").grid(column=2, row=2, sticky=(W, E))
+
+SideInput = ttk.Entry(window, width=4, textvariable=NumberOfSides)
+SideInput.grid(column=3, row=1, sticky=(W, E))
+
+ttk.Button(window, text="Throw!", command=DiceThrow).grid(column=4, row=1, sticky=W)
+ttk.Label(window, textvariable="The result of the throw is").grid(column=1, row=2, sticky=W)
+ttk.Label(window, textvariable=ThrowResult).grid(column=3, row=2, sticky=W)
+
 window.mainloop()
