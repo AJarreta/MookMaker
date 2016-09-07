@@ -1,3 +1,6 @@
+import random
+import math
+
 class CthulhuCharacter(object):
     CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Income": '', "Nationality": '', "Gender": '', "Personality": ''}
     CharStats = {"STR": 0, "CON": 0, "SIZ": 0, \
@@ -20,7 +23,7 @@ class CthulhuCharacter(object):
     ClassSkillPoints = 0
     FreeSkillPoints = 0
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         return super(CthulhuCharacter, self).__init__(*args, **kwargs)
 
     def EDURoll(self):
@@ -85,7 +88,10 @@ class CthulhuCharacter(object):
 
 class Lawyer(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Library Use", "Accounting", "Credit Rating", "Fast Talk", "Law", "Persuade", \
+                   "Other Language: Latin", "Bargain", "Psychology"]
+
+    
     
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Lawyer, self).StatRollNormal()
@@ -97,10 +103,29 @@ class Lawyer(CthulhuCharacter):
         self.CharStats["APP"] = super(Lawyer, self).StatRollNormal
         self.CharStats["EDU"] = super(Lawyer, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.DerivedStatsGeneration()
     
     def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
 class Antiquarian(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Antiquarian, self).StatRollNormal
@@ -113,7 +138,27 @@ class Antiquarian(CthulhuCharacter):
         self.CharStats["EDU"] = super(Antiquarian, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Parapsychologist(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Parapsychologist, self).StatRollNormal
@@ -126,7 +171,27 @@ class Parapsychologist(CthulhuCharacter):
         self.CharStats["EDU"] = super(Parapsychologist, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Writer(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Writer, self).StatRollNormal()
@@ -139,7 +204,27 @@ class Writer(CthulhuCharacter):
         self.CharStats["EDU"] = super(Writer, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class PrivateInvestigator(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(PrivateInvestigator, self).StatRollNormal()
@@ -152,7 +237,45 @@ class PrivateInvestigator(CthulhuCharacter):
         self.CharStats["EDU"] = super(PrivateInvestigator, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
-class Journalist(CthulhuCharacter:
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
+class Journalist(CthulhuCharacter):
+    
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Journalist, self).StatRollNormal()
@@ -165,7 +288,27 @@ class Journalist(CthulhuCharacter:
         self.CharStats["EDU"] = super(Journalist, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Dilettante(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         CharStatsWorkCopy = self.CharStats.items()
@@ -184,7 +327,27 @@ class Dilettante(CthulhuCharacter):
         self.CharStats["EDU"] = super(Dilettante, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Doctor(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Doctor, self).StatRollNormal()
@@ -197,7 +360,27 @@ class Doctor(CthulhuCharacter):
         self.CharStats["EDU"] = super(Doctor, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class CollegeProfessor(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(CollegeProfessor, self).StatRollNormal()
@@ -210,7 +393,27 @@ class CollegeProfessor(CthulhuCharacter):
         self.CharStats["EDU"] = super(CollegeProfessor, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Revolutionary(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Revolutionary, self).StatRollNormal()
@@ -223,7 +426,27 @@ class Revolutionary(CthulhuCharacter):
         self.CharStats["EDU"] = super(Revolutionary, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Farmer(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Farmer, self).StatRollHigh()
@@ -236,7 +459,27 @@ class Farmer(CthulhuCharacter):
         self.CharStats["EDU"] = super(Farmer, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Politician(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Politician, self).StatRollNormal()
@@ -249,7 +492,27 @@ class Politician(CthulhuCharacter):
         self.CharStats["EDU"] = super(Politician, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Athlete(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Athlete, self).StatRollXHigh()
@@ -262,7 +525,27 @@ class Athlete(CthulhuCharacter):
         self.CharStats["EDU"] = super(Athlete, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Missionary(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Missionary, self).StatRollNormal()
@@ -275,7 +558,27 @@ class Missionary(CthulhuCharacter):
         self.CharStats["EDU"] = super(Missionary, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Soldier(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Soldier, self).StatRollXHigh()
@@ -288,7 +591,27 @@ class Soldier(CthulhuCharacter):
         self.CharStats["EDU"] = super(Soldier, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Gangster(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Gangster, self).StatRollNormal()
@@ -301,7 +624,27 @@ class Gangster(CthulhuCharacter):
         self.CharStats["EDU"] = super(Gangster, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Police(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Police, self).StatRollXHigh()
@@ -314,7 +657,27 @@ class Police(CthulhuCharacter):
         self.CharStats["EDU"] = super(Police, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
 class Drifter(CthulhuCharacter):
+
+    ClassSkills = []
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Drifter, self).StatRollNormal()
@@ -326,3 +689,21 @@ class Drifter(CthulhuCharacter):
         self.CharStats["APP"] = super(Drifter, self).StatRollNormal()
         self.CharStats["EDU"] = super(Drifter, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+
+    def DerivedStatsGeneration(self):
+        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
+        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
+        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
+        self.CharDerivedStats["MP"] = self.CharStats["POW"]
+        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
+        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
+        if BonusDamValue >= 2 and BonusDamValue <= 2:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
+        elif BonusDamValue >= 13 and BonusDamValue <= 16:
+            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
+        elif BonusDamValue >= 17 and BonusDamValue <= 24:
+            self.CharDerivedStats["Dam. Bonus"] = '0'
+        elif BonusDamValue >= 25 and BonusDamValue <= 32:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
+        elif BonusDamValue >= 33 and BonusDamValue <= 36:
+            self.CharDerivedStats["Dam. Bonus"] = '+1d6'

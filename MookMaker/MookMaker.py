@@ -9,3 +9,10 @@ for x in range(10000):
 AverageResult = float(AverageComposite/10000)
 
 print AverageResult
+
+'''
+
+import random
+import charclass
+
+TestLawyer = 
