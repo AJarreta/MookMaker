@@ -51,9 +51,9 @@ class CthulhuCharacter(object):
         for i in range(4):
             dicethrow = random.randint(1, 6)
             result += dicethrow
-            if dicethrow < minorrresult:
+            if dicethrow < minorresult:
                 minorresult = dicethrow
-        result -= mminorresult
+        result -= minorresult
         return result
 
     def StatRollXHigh(self):
@@ -90,20 +90,20 @@ class Lawyer(CthulhuCharacter):
 
     ClassSkills = ["Library Use", "Accounting", "Credit Rating", "Fast Talk", "Law", "Persuade", \
                    "Other Language: Latin", "Bargain", "Psychology"]
-
-    
     
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Lawyer, self).StatRollNormal()
         self.CharStats["CON"] = super(Lawyer, self).StatRollNormal()
         self.CharStats["SIZ"] = super(Lawyer, self).StatRollXHigh()
         self.CharStats["INT"] = super(Lawyer, self).StatRollXHigh()
-        self.CharStats["POW"] = super(Lawyer, self).StatRollHigh
-        self.CharStats["DEX"] = super(Lawyer, self).StatRollNormal
-        self.CharStats["APP"] = super(Lawyer, self).StatRollNormal
+        self.CharStats["POW"] = super(Lawyer, self).StatRollHigh()
+        self.CharStats["DEX"] = super(Lawyer, self).StatRollNormal()
+        self.CharStats["APP"] = super(Lawyer, self).StatRollNormal()
         self.CharStats["EDU"] = super(Lawyer, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
         self.DerivedStatsGeneration()
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
     
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -122,6 +122,24 @@ class Lawyer(CthulhuCharacter):
             self.CharDerivedStats["Dam. Bonus"] = '+1d4'
         elif BonusDamValue >= 33 and BonusDamValue <= 36:
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
+
+    def ClassSkillsGeneration (self):
+        self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
+        self.CharSkills["Own Language"] = self.CharStats["EDU"] * 5
+        if self.CharSkills["Own Language"] > 85:
+            self.CharSkills["Own Language"] = 85
+        while self.ClassSkillPoints > 0:
+            CurrentSkill = self.ClassSkills[random.randint(0, range(self.ClassSkills))]
+            PointsInvested = random.randint(10, 85)
+            if (self.ClassSkillPoints - PointsInvested) < 0:
+                PointsInvested = self.ClassSkillPoints
+            if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
+                self.CharSkills[CurrentSkill] = 85
+                PointsInvested = 85 - self.CharSkills[CurrentSkill]
+            else:
+                self.CharSkills[CurrentSkill] += PointsInvested
+            self.ClassSkillPoints -= PointsInvested
+
 
 class Antiquarian(CthulhuCharacter):
 

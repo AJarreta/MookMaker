@@ -28,7 +28,7 @@ ThrowResult = Tkinter.IntVar()
 DiceInput = ttk.Entry(window, width=4, textvariable=NumberOfDice)
 DiceInput.grid(column=1, row=1)
 
-ttk.Label(window, text='d').grid(column=2, row=2, sticky='W E')
+ttk.Label(window, text='d').grid(column=2, row=1, sticky='N S W E')
 
 SideInput = ttk.Entry(window, width=4, textvariable=NumberOfSides)
 SideInput.grid(column=3, row=1)
