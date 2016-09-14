@@ -15,10 +15,15 @@ print AverageResult
 import random
 import charclass
 
-TestDilettante = charclass.Dilettante()
+TestLawyer = charclass.Lawyer()
 
-TestDilettante.StatsGeneration()
+TestLawyer.StatsGeneration()
+TestLawyer.ClassSkillsGeneration()
 
 print TestLawyer.CharStats
 
 print TestLawyer.CharDerivedStats
+
+print TestLawyer.ClassSkills
+
+print TestLawyer.CharSkills
