@@ -1,0 +1,5 @@
+Nationalities = []
+Languages = []
+Female_Names = {}
+Male_Names = {}
+Personalities = []

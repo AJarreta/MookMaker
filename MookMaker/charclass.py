@@ -89,7 +89,7 @@ class CthulhuCharacter(object):
 class Lawyer(CthulhuCharacter):
 
     ClassSkills = ["Library Use", "Accounting", "Credit Rating", "Fast Talk", "Law", "Persuade", \
-                   "Other Language", "Bargain", "Psychology"]
+                   "Other Language: Latin", "Bargain", "Psychology"]
     
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Lawyer, self).StatRollNormal()
@@ -128,6 +128,7 @@ class Lawyer(CthulhuCharacter):
         self.CharSkills["Own Language"] = self.CharStats["EDU"] * 5
         if self.CharSkills["Own Language"] > 85:
             self.CharSkills["Own Language"] = 85
+        self.CharSkills["Other Language: Latin"] = self.CharSkills.pop("Other Language")
         while self.ClassSkillPoints > 0:
             CurrentSkill = self.ClassSkills[(random.randint(0, len(self.ClassSkills))) - 1]
             PointsInvested = random.randint(10, 85)
@@ -139,6 +140,19 @@ class Lawyer(CthulhuCharacter):
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
+
+    def FreeSkillsGeneration (self):
+        ReferenceCombat = sorted(self.CharCombatSkills)
+        ReferenceSkills = sorted(self.CharSkills)
+        while self.FreeSkillPoints > 0:
+            BranchRoll = super(Lawyer, self).PercentRoll
+            if BranchRoll < 75:
+                CurrentSkill = ReferenceSkills[(random.randint(0, len(self.ReferenceSkills))) -1]
+            else:
+                CurrentSkill = ReferenceCombat[(random)]
+            
+    def PersonalGeneration (self, *args):
+        
 
 
 class Antiquarian(CthulhuCharacter):
