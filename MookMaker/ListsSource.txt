@@ -1,5 +1,6 @@
 Nationalities = []
 Languages = []
+Arts = []
 Female_Names = {}
 Male_Names = {}
 Personalities = []

@@ -23,7 +23,13 @@ class CthulhuCharacter(object):
     ClassSkillPoints = 0
     FreeSkillPoints = 0
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, nationalities, female_names, male_names, languages, personalities, arts):
+        self.nationalities = nationalities
+        self.female_names = female_names
+        self.male_names = male_names
+        self.languages = languages
+        self.arts = arts
+        self.personalities = personalities
         return super(CthulhuCharacter, self).__init__(*args, **kwargs)
 
     def EDURoll(self):
@@ -63,6 +69,10 @@ class CthulhuCharacter(object):
             result += dicethrow
         result += 6
         return result
+
+    def SetVariableSkills(self, languages):
+
+    def PrintCharacter(self):
 
     def ResetCharacter(self):
         self.CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Titles": '', "Nationality": '', "Gender": '', "Personality": ''}
