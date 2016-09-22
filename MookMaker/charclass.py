@@ -70,7 +70,19 @@ class CthulhuCharacter(object):
         result += 6
         return result
 
-    def SetVariableSkills(self, languages):
+    def SetLanguageSkills(self):
+        LanguageIndex = random.randint(0, len(languages) - 1)
+        if "Other Languages" in self.CharSkills.keys:
+            self.CharSkills["Other Language:", self.languages[LanguageIndex]] = self.CharSkills.pop("Other Language")
+        else:
+            self.CharSkills["Other Language:", self.languages[LanguageIndex]] = 1
+
+    def SetArtSkills(self, arts):
+        ArtsIndex = random.randint(0, len(arts) - 1)
+        if "Art" in self.CharSkills.keys:
+            self.CharSkills["Art:", self.languages[LanguageIndex]] = self.CharSkills.pop("Art")
+        else:
+            self.CharSkills["Art:", self.languages[LanguageIndex]] = 1
 
     def PrintCharacter(self):
 
