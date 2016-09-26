@@ -1,6 +1,7 @@
-Nationalities = []
+Nationalities = {}
 Languages = []
-Arts = []
+Arts = ["Paint", "Sculpture", "Dance", "Singing", "Film", "Woodcarving", "Drawing", "Piano", "String Instruments", \
+		"Brass Instruments", "Woodwind Instruments", "Percussion Instruments", "Puppeteering", "Acrobacy"]
 Female_Names = {}
 Male_Names = {}
 Personalities = []

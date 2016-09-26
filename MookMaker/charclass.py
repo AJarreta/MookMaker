@@ -72,19 +72,28 @@ class CthulhuCharacter(object):
 
     def SetLanguageSkills(self):
         LanguageIndex = random.randint(0, len(languages) - 1)
-        if "Other Languages" in self.CharSkills.keys:
-            self.CharSkills["Other Language:", self.languages[LanguageIndex]] = self.CharSkills.pop("Other Language")
+        CurrentLanguage = "Other Language:", self.languages[LanguageIndex]
+        if "Other Language" in self.CharSkills.keys:
+            self.CharSkills[CurrentLanguage] = self.CharSkills.pop("Other Language")
+        elif CurrentLanguage in self.CharSkills.keys:
+            self.CharSkills[CurrentLanguage] = self.CharSkills.pop(CurrentLanguage)
         else:
-            self.CharSkills["Other Language:", self.languages[LanguageIndex]] = 1
+            self.CharSkills[CurrentLanguage] = 1
+        return CurrentLanguage
 
-    def SetArtSkills(self, arts):
+    def SetArtSkills(self):
         ArtsIndex = random.randint(0, len(arts) - 1)
+        CurrentArt = "Art:", self.arts[ArtsIndex]
         if "Art" in self.CharSkills.keys:
-            self.CharSkills["Art:", self.languages[LanguageIndex]] = self.CharSkills.pop("Art")
+            self.CharSkills[CurrentArt] = self.CharSkills.pop("Art")
+        elif CurrentArt in self.CharSkills.keys:
+            self.CharSkills[CurrentArt] = self.CharSkills.pop(CurrentArt)
         else:
-            self.CharSkills["Art:", self.languages[LanguageIndex]] = 1
+            self.CharSkills[CurrentArt] = 1
+        return CurrentArt
 
     def PrintCharacter(self):
+        pass
 
     def ResetCharacter(self):
         self.CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Titles": '', "Nationality": '', "Gender": '', "Personality": ''}
@@ -112,6 +121,8 @@ class Lawyer(CthulhuCharacter):
 
     ClassSkills = ["Library Use", "Accounting", "Credit Rating", "Fast Talk", "Law", "Persuade", \
                    "Other Language: Latin", "Bargain", "Psychology"]
+    ReferenceCombat = sorted(super(Lawyer, self).CharCombatSkills)
+    ReferenceSkills = sorted(super(Lawyer, self).CharSkills)
     
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Lawyer, self).StatRollNormal()
@@ -164,16 +175,20 @@ class Lawyer(CthulhuCharacter):
             self.ClassSkillPoints -= PointsInvested
 
     def FreeSkillsGeneration (self):
-        ReferenceCombat = sorted(self.CharCombatSkills)
-        ReferenceSkills = sorted(self.CharSkills)
         while self.FreeSkillPoints > 0:
             BranchRoll = super(Lawyer, self).PercentRoll
             if BranchRoll < 75:
-                CurrentSkill = ReferenceSkills[(random.randint(0, len(self.ReferenceSkills))) -1]
+                CurrentSkill = self.ReferenceSkills[(random.randint(0, len(self.ReferenceSkills))) -1]
+                if CurrentSkill == "Other Language":
+                    CurrentSkill = self.SetLanguageSkills()
+                if CurrentSkill == "Art":
+                    CurrentSkill = self.SetArtSkills()
+                PointsInvested = random.randint(10, 85)
             else:
                 CurrentSkill = ReferenceCombat[(random)]
             
-    def PersonalGeneration (self, *args):
+    def PersonalGeneration (self):
+        pass
         
 
 
