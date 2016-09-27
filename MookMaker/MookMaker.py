@@ -14,11 +14,14 @@ print AverageResult
 
 import random
 import charclass
+from MookMaker import ListsSource
+
+SourceFile = open("ListsSource.txt", "r")
+SourceFile.close()
 
 TestLawyer = charclass.Lawyer()
 
-TestLawyer.StatsGeneration()
-TestLawyer.ClassSkillsGeneration()
+TestLawyer.LawyerGenerator()
 
 print TestLawyer.CharStats
 
@@ -27,3 +30,7 @@ print TestLawyer.CharDerivedStats
 print TestLawyer.ClassSkills
 
 print TestLawyer.CharSkills
+
+print TestLawyer.CharCombatSkills
+
+print TestLawyer.PersonalGeneration

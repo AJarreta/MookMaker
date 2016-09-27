@@ -1,7 +1,6 @@
-Nationalities = {}
-Languages = []
-Arts = ["Paint", "Sculpture", "Dance", "Singing", "Film", "Woodcarving", "Drawing", "Piano", "String Instruments", \
-		"Brass Instruments", "Woodwind Instruments", "Percussion Instruments", "Puppeteering", "Acrobacy"]
+Nationalities = {"Europe":["British", "French", "German"]}
+Languages = English", "French", "German"]
+Arts = Paint, Sculpture, Dance, Singing, Film, "Woodcarving", "Drawing", "Piano", "String Instruments", "Brass Instruments", "Woodwind Instruments", "Percussion Instruments", "Puppeteering", "Acrobacy"]
 Female_Names = {}
 Male_Names = {}
 Personalities = []

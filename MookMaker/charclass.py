@@ -23,6 +23,9 @@ class CthulhuCharacter(object):
     ClassSkillPoints = 0
     FreeSkillPoints = 0
 
+    ReferenceCombat = sorted(CharCombatSkills)
+    ReferenceSkills = sorted(CharSkills)
+
     def __init__(self, nationalities, female_names, male_names, languages, personalities, arts):
         self.nationalities = nationalities
         self.female_names = female_names
@@ -121,8 +124,13 @@ class Lawyer(CthulhuCharacter):
 
     ClassSkills = ["Library Use", "Accounting", "Credit Rating", "Fast Talk", "Law", "Persuade", \
                    "Other Language: Latin", "Bargain", "Psychology"]
-    ReferenceCombat = sorted(super(Lawyer, self).CharCombatSkills)
-    ReferenceSkills = sorted(super(Lawyer, self).CharSkills)
+
+    def LawyerGenerator(self):
+        self.StatsGeneration()
+        self.DerivedStatsGeneration()
+        self.ClassSkillsGeneration()
+        self.FreeSkillsGeneration()
+        self.PersonalGeneration()
     
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Lawyer, self).StatRollNormal()
@@ -134,7 +142,6 @@ class Lawyer(CthulhuCharacter):
         self.CharStats["APP"] = super(Lawyer, self).StatRollNormal()
         self.CharStats["EDU"] = super(Lawyer, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
-        self.DerivedStatsGeneration()
         self.ClassSkillPoints = self.CharStats["EDU"] * 20
         self.FreeSkillPoints = self.CharStats["EDU"] * 10
     
@@ -178,14 +185,30 @@ class Lawyer(CthulhuCharacter):
         while self.FreeSkillPoints > 0:
             BranchRoll = super(Lawyer, self).PercentRoll
             if BranchRoll < 75:
-                CurrentSkill = self.ReferenceSkills[(random.randint(0, len(self.ReferenceSkills))) -1]
+                CurrentSkill = self.ReferenceSkills[(random.randint(0, len(self.ReferenceSkills))) - 1]
                 if CurrentSkill == "Other Language":
                     CurrentSkill = self.SetLanguageSkills()
                 if CurrentSkill == "Art":
                     CurrentSkill = self.SetArtSkills()
                 PointsInvested = random.randint(10, 85)
+                if (self.FreeSkillPoints - PointsInvested) < 0:
+                    PointsInvested = self.FreeSkillPoints
+                if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
+                    self.CharSkills[CurrentSkill] = 85
+                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                else:
+                    self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random)]
+                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                PointsInvested = random.randint(10, 85)
+                if (self.FreeSkillPoints - PointsInvested) < 0:
+                    PointsInvested = self.FreeSkillPoints
+                if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    self.CharCombatSkills[CurrentSkill] = 85
+                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                else:
+                    self.CharSkills[CurrentSkill] += PointsInvested
+            self.FreeSkillPoints -= PointsInvested
             
     def PersonalGeneration (self):
         pass
