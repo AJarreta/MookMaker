@@ -219,7 +219,7 @@ class Lawyer(CthulhuCharacter):
 
 class Antiquarian(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Library Use", "Law", "Navigate", "Other Language", "Other Language", "History", "Art", "Bargain", "Craft"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -305,7 +305,8 @@ class Antiquarian(CthulhuCharacter):
 
 class Parapsychologist(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Anthropology", "Archaeology", "Library Use", "Occult", "Other Language", "History", "Psychology", \
+                   "Psychoanalysis"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -391,7 +392,7 @@ class Parapsychologist(CthulhuCharacter):
 
 class Writer(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Library Use", "Fast Talk", "Persuade", "Own Language", "Other Language", "History"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
