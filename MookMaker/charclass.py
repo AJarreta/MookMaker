@@ -177,8 +177,8 @@ class Lawyer(CthulhuCharacter):
             if (self.ClassSkillPoints - PointsInvested) < 0:
                 PointsInvested = self.ClassSkillPoints
             if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                self.CharSkills[CurrentSkill] = 85
                 PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                self.CharSkills[CurrentSkill] = 85
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
@@ -196,8 +196,8 @@ class Lawyer(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                    self.CharSkills[CurrentSkill] = 85
                     PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
@@ -206,8 +206,8 @@ class Lawyer(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
-                    self.CharCombatSkills[CurrentSkill] = 85
                     PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharCombatSkills[CurrentSkill] = 85
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
@@ -268,8 +268,8 @@ class Antiquarian(CthulhuCharacter):
             if (self.ClassSkillPoints - PointsInvested) < 0:
                 PointsInvested = self.ClassSkillPoints
             if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                self.CharSkills[CurrentSkill] = 85
                 PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                self.CharSkills[CurrentSkill] = 85
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
@@ -287,8 +287,8 @@ class Antiquarian(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                    self.CharSkills[CurrentSkill] = 85
                     PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
@@ -297,10 +297,10 @@ class Antiquarian(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
                     self.CharCombatSkills[CurrentSkill] = 85
-                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
                 else:
-                    self.CharSkills[CurrentSkill] += PointsInvested
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
 class Parapsychologist(CthulhuCharacter):
@@ -355,8 +355,8 @@ class Parapsychologist(CthulhuCharacter):
             if (self.ClassSkillPoints - PointsInvested) < 0:
                 PointsInvested = self.ClassSkillPoints
             if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                self.CharSkills[CurrentSkill] = 85
                 PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                self.CharSkills[CurrentSkill] = 85
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
@@ -374,8 +374,8 @@ class Parapsychologist(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                    self.CharSkills[CurrentSkill] = 85
                     PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
@@ -384,15 +384,15 @@ class Parapsychologist(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
                     self.CharCombatSkills[CurrentSkill] = 85
-                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
                 else:
-                    self.CharSkills[CurrentSkill] += PointsInvested
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
 class Writer(CthulhuCharacter):
 
-    ClassSkills = ["Library Use", "Fast Talk", "Persuade", "Own Language", "Other Language", "History"]
+    ClassSkills = ["Library Use", "Fast Talk", "Persuade", "Own Language", "Other Language", "History", "Psychology"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -431,6 +431,8 @@ class Writer(CthulhuCharacter):
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
     def ClassSkillsGeneration (self):
+        for x in range(2):
+            self.ClassSkills.append(self.ReferenceSkills[random.randint(0, (range(self.ReferenceSkills)-1))])
         self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
         self.CharSkills["Own Language"] = self.CharStats["EDU"] * 5
         if self.CharSkills["Own Language"] > 85:
@@ -441,8 +443,8 @@ class Writer(CthulhuCharacter):
             if (self.ClassSkillPoints - PointsInvested) < 0:
                 PointsInvested = self.ClassSkillPoints
             if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                self.CharSkills[CurrentSkill] = 85
                 PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                self.CharSkills[CurrentSkill] = 85
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
@@ -460,8 +462,8 @@ class Writer(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                    self.CharSkills[CurrentSkill] = 85
                     PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
@@ -470,15 +472,16 @@ class Writer(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
                     self.CharCombatSkills[CurrentSkill] = 85
-                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
                 else:
-                    self.CharSkills[CurrentSkill] += PointsInvested
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
 class PrivateInvestigator(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Sneak", "Accounting", "Credit Rating", "Fast Talk", "Law", "Conceal", "Listen", "Disguise", \
+                   "Spot Hidden", "Handgun"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -516,24 +519,6 @@ class PrivateInvestigator(CthulhuCharacter):
         elif BonusDamValue >= 33 and BonusDamValue <= 36:
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
-    def DerivedStatsGeneration(self):
-        self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
-        self.CharDerivedStats["Idea"] = self.CharStats["INT"] * 5
-        self.CharDerivedStats["Luck"] = self.CharStats["POW"] * 5
-        self.CharDerivedStats["MP"] = self.CharStats["POW"]
-        self.CharDerivedStats["Knowledge"] = self.CharStats["EDU"] * 5
-        BonusDamValue = self.CharStats["STR"] + self.CharStats["SIZ"]
-        if BonusDamValue >= 2 and BonusDamValue <= 2:
-            self.CharDerivedStats["Dam. Bonus"] = '-1d6'
-        elif BonusDamValue >= 13 and BonusDamValue <= 16:
-            self.CharDerivedStats["Dam. Bonus"] = '-1d4'
-        elif BonusDamValue >= 17 and BonusDamValue <= 24:
-            self.CharDerivedStats["Dam. Bonus"] = '0'
-        elif BonusDamValue >= 25 and BonusDamValue <= 32:
-            self.CharDerivedStats["Dam. Bonus"] = '+1d4'
-        elif BonusDamValue >= 33 and BonusDamValue <= 36:
-            self.CharDerivedStats["Dam. Bonus"] = '+1d6'
-
     def ClassSkillsGeneration (self):
         self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
         self.CharSkills["Own Language"] = self.CharStats["EDU"] * 5
@@ -544,11 +529,16 @@ class PrivateInvestigator(CthulhuCharacter):
             PointsInvested = random.randint(10, 85)
             if (self.ClassSkillPoints - PointsInvested) < 0:
                 PointsInvested = self.ClassSkillPoints
-            if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                self.CharSkills[CurrentSkill] = 85
-                PointsInvested = 85 - self.CharSkills[CurrentSkill]
-            else:
-                self.CharSkills[CurrentSkill] += PointsInvested
+            if CurrentSkill == "Handgun":
+                if (self.CharCombatSkills["Handgun"] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills["Handgun"]
+                    self.CharCombatSkills["Handgun"] = 85
+            else: 
+                if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
+                else:
+                    self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
 
     def FreeSkillsGeneration (self):
@@ -564,8 +554,8 @@ class PrivateInvestigator(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                    self.CharSkills[CurrentSkill] = 85
                     PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
@@ -574,10 +564,10 @@ class PrivateInvestigator(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
                     self.CharCombatSkills[CurrentSkill] = 85
-                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
                 else:
-                    self.CharSkills[CurrentSkill] += PointsInvested
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
 class Journalist(CthulhuCharacter):
@@ -631,8 +621,8 @@ class Journalist(CthulhuCharacter):
             if (self.ClassSkillPoints - PointsInvested) < 0:
                 PointsInvested = self.ClassSkillPoints
             if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                self.CharSkills[CurrentSkill] = 85
                 PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                self.CharSkills[CurrentSkill] = 85
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
@@ -650,8 +640,8 @@ class Journalist(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                    self.CharSkills[CurrentSkill] = 85
                     PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
@@ -660,10 +650,10 @@ class Journalist(CthulhuCharacter):
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
                     self.CharCombatSkills[CurrentSkill] = 85
-                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
                 else:
-                    self.CharSkills[CurrentSkill] += PointsInvested
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
 class Dilettante(CthulhuCharacter):
