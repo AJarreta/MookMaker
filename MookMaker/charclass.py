@@ -170,7 +170,6 @@ class Lawyer(CthulhuCharacter):
         self.CharSkills["Own Language"] = self.CharStats["EDU"] * 5
         if self.CharSkills["Own Language"] > 85:
             self.CharSkills["Own Language"] = 85
-        self.CharSkills["Other Language: Latin"] = self.CharSkills.pop("Other Language")
         while self.ClassSkillPoints > 0:
             CurrentSkill = self.ClassSkills[(random.randint(0, len(self.ClassSkills))) - 1]
             PointsInvested = random.randint(10, 85)
@@ -182,6 +181,8 @@ class Lawyer(CthulhuCharacter):
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
+        self.CharSkills["Other Language: Latin"] = self.CharSkills.pop("Other Language")
+
 
     def FreeSkillsGeneration (self):
         while self.FreeSkillPoints > 0:
@@ -431,8 +432,10 @@ class Writer(CthulhuCharacter):
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
     def ClassSkillsGeneration (self):
-        for x in range(2):
-            self.ClassSkills.append(self.ReferenceSkills[random.randint(0, (range(self.ReferenceSkills)-1))])
+        while range(self.ClassSkills) < 9:
+            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (range(self.ReferenceSkills)-1))]
+            if CurrentRandomSkill not in self.ClassSkills:
+                self.ClassSkills.append(CurrentRandomSkill)
         self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
         self.CharSkills["Own Language"] = self.CharStats["EDU"] * 5
         if self.CharSkills["Own Language"] > 85:
@@ -572,7 +575,7 @@ class PrivateInvestigator(CthulhuCharacter):
 
 class Journalist(CthulhuCharacter):
     
-    ClassSkills = []
+    ClassSkills = ["Fast Talk", "Persuade", "Bargain", "Other Language", "Own Language", "Sneak", "Listen"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -611,6 +614,10 @@ class Journalist(CthulhuCharacter):
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
     def ClassSkillsGeneration (self):
+        while range(self.ClassSkills) < 9:
+            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (range(self.ReferenceSkills)-1))]
+            if CurrentRandomSkill not in self.ClassSkills:
+                self.ClassSkills.append(CurrentRandomSkill)
         self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
         self.CharSkills["Own Language"] = self.CharStats["EDU"] * 5
         if self.CharSkills["Own Language"] > 85:
@@ -703,6 +710,10 @@ class Dilettante(CthulhuCharacter):
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
     def ClassSkillsGeneration (self):
+        while range(self.ClassSkills) < 9:
+            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (range(self.ReferenceSkills)-1))]
+            if CurrentRandomSkill not in self.ClassSkills:
+                self.ClassSkills.append(CurrentRandomSkill)
         self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
         self.CharSkills["Own Language"] = self.CharStats["EDU"] * 5
         if self.CharSkills["Own Language"] > 85:
@@ -752,7 +763,8 @@ class Dilettante(CthulhuCharacter):
 
 class Doctor(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Credit Rating", "First Aid", "Medicine", "Other Language", "Pharmacy", "Psychology", "Psychoanalysis", \
+                   "Biology", "Chemistry"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -806,6 +818,8 @@ class Doctor(CthulhuCharacter):
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
+        self.CharSkills["Other Language: Latin"] = self.CharSkills.pop("Other Language")
+
 
     def FreeSkillsGeneration (self):
         while self.FreeSkillPoints > 0:
@@ -838,7 +852,8 @@ class Doctor(CthulhuCharacter):
 
 class CollegeProfessor(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Anthropology", "Archaeology", "Astronomy", "Biology", "Library Use", "Occult", "Persuade", "Geology", \
+                   "Other Language", "History", "Chemistry", "Natural History"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -892,6 +907,8 @@ class CollegeProfessor(CthulhuCharacter):
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
+        if self.CharSkills["Other Language"] > 1:
+            self.SetLanguageSkills()
 
     def FreeSkillsGeneration (self):
         while self.FreeSkillPoints > 0:
