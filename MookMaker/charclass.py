@@ -941,7 +941,7 @@ class CollegeProfessor(CthulhuCharacter):
 
 class Revolutionary(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Library Use", "Hide", "Conceal", "Disguise", "Sneak", "Fast Talk", "Other Language", "Psychology", "Persuade"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -1027,7 +1027,8 @@ class Revolutionary(CthulhuCharacter):
 
 class Farmer(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Spot Hidden", "Operate Heavy Machinery", "Natural History", "Listen", "First Aid", "Bargain", "Biology", \
+                   "Drive Auto", "Mechanical Repair"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -1113,7 +1114,7 @@ class Farmer(CthulhuCharacter):
 
 class Politician(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Accounting", "Credit Rating", "Fast Talk", "Law", "Persuade", "History", "Bargain", "Psychology", "Listen"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -1199,7 +1200,7 @@ class Politician(CthulhuCharacter):
 
 class Athlete(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Credit Rating", "Ride", "Dodge", "Throw", "Swim", "Psychology", "Jump", "Climb", "Martial Arts"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -1285,7 +1286,8 @@ class Athlete(CthulhuCharacter):
 
 class Missionary(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Art", "Accounting", "Credit Rating", "Fast Talk", "Medicine", "Other Language", "First Aid", "Bargain", \
+                   "Anthropology"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -1371,7 +1373,8 @@ class Missionary(CthulhuCharacter):
 
 class Soldier(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Conceal", "Drive Auto", "Operate Heavy Machinery", "Spot Hidden", "Sneak", "Mechanical Repair", "Listen", \
+                   "First Aid", "Rifle"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -1457,7 +1460,8 @@ class Soldier(CthulhuCharacter):
 
 class Gangster(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Handgun", "Drive Auto", "Credit Rating", "Knife", "Fast Talk", "Law", "Spot Hidden", "Listen", "Bargain", \
+                   "Locksmith", "Climb"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -1543,7 +1547,7 @@ class Gangster(CthulhuCharacter):
 
 class Police(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Handgun", "Drive Auto", "Fast Talk", "Law", "Spot Hidden", "Sneak", "Listen", "Conceal", "Club", "First Aid"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -1629,7 +1633,7 @@ class Police(CthulhuCharacter):
 
 class Drifter(CthulhuCharacter):
 
-    ClassSkills = []
+    ClassSkills = ["Fast Talk", "Spot Hidden", "Sneak", "Listen", "Conceal", "First Aid", "Bargain", "Climb", "Locksmith"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
