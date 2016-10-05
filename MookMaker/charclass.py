@@ -220,7 +220,7 @@ class Lawyer(CthulhuCharacter):
 
 class Antiquarian(CthulhuCharacter):
 
-    ClassSkills = ["Library Use", "Law", "Navigate", "Other Language", "Other Language", "History", "Art", "Bargain", "Craft"]
+    ClassSkills = ["Library Use", "Law", "Navigate", "Archaeology", "Other Language", "History", "Art", "Bargain", "Craft"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -533,9 +533,11 @@ class PrivateInvestigator(CthulhuCharacter):
             if (self.ClassSkillPoints - PointsInvested) < 0:
                 PointsInvested = self.ClassSkillPoints
             if CurrentSkill == "Handgun":
-                if (self.CharCombatSkills["Handgun"] + PointsInvested) > 85:
-                    PointsInvested = 85 - self.CharCombatSkills["Handgun"]
-                    self.CharCombatSkills["Handgun"] = 85
+                if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
+                    self.CharCombatSkills[CurrentSkill] = 85
+                else:
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
             else: 
                 if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
                     PointsInvested = 85 - self.CharSkills[CurrentSkill]
@@ -1341,6 +1343,7 @@ class Missionary(CthulhuCharacter):
             else:
                 self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
+        self.CharSkills["Art: Singing"] = self.CharSkills.pop("Art")
 
     def FreeSkillsGeneration (self):
         while self.FreeSkillPoints > 0:
@@ -1373,7 +1376,7 @@ class Missionary(CthulhuCharacter):
 
 class Soldier(CthulhuCharacter):
 
-    ClassSkills = ["Conceal", "Drive Auto", "Operate Heavy Machinery", "Spot Hidden", "Sneak", "Mechanical Repair", "Listen", \
+    ClassSkills = ["Conceal", "Drive Auto", "Operate Heavy Machinery", "Spot Hidden", "Sneak", "Electric Repair", "Listen", \
                    "First Aid", "Rifle"]
 
     def CharacterGenerator(self):
@@ -1420,13 +1423,18 @@ class Soldier(CthulhuCharacter):
         while self.ClassSkillPoints > 0:
             CurrentSkill = self.ClassSkills[(random.randint(0, len(self.ClassSkills))) - 1]
             PointsInvested = random.randint(10, 85)
-            if (self.ClassSkillPoints - PointsInvested) < 0:
-                PointsInvested = self.ClassSkillPoints
-            if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                PointsInvested = 85 - self.CharSkills[CurrentSkill]
-                self.CharSkills[CurrentSkill] = 85
-            else:
-                self.CharSkills[CurrentSkill] += PointsInvested
+            if CurrentSkill == "Rifle":
+                if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
+                    self.CharCombatSkills[CurrentSkill] = 85
+                else:
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
+            else: 
+                if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
+                else:
+                    self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
 
     def FreeSkillsGeneration (self):
@@ -1507,13 +1515,18 @@ class Gangster(CthulhuCharacter):
         while self.ClassSkillPoints > 0:
             CurrentSkill = self.ClassSkills[(random.randint(0, len(self.ClassSkills))) - 1]
             PointsInvested = random.randint(10, 85)
-            if (self.ClassSkillPoints - PointsInvested) < 0:
-                PointsInvested = self.ClassSkillPoints
-            if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                PointsInvested = 85 - self.CharSkills[CurrentSkill]
-                self.CharSkills[CurrentSkill] = 85
-            else:
-                self.CharSkills[CurrentSkill] += PointsInvested
+            if CurrentSkill == "Handgun" or CurrentSkill == "Knife":
+                if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
+                    self.CharCombatSkills[CurrentSkill] = 85
+                else:
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
+            else: 
+                if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
+                else:
+                    self.CharSkills[CurrentSkill] += PointsInvested
             self.ClassSkillPoints -= PointsInvested
 
     def FreeSkillsGeneration (self):
@@ -1593,14 +1606,18 @@ class Police(CthulhuCharacter):
         while self.ClassSkillPoints > 0:
             CurrentSkill = self.ClassSkills[(random.randint(0, len(self.ClassSkills))) - 1]
             PointsInvested = random.randint(10, 85)
-            if (self.ClassSkillPoints - PointsInvested) < 0:
-                PointsInvested = self.ClassSkillPoints
-            if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
-                PointsInvested = 85 - self.CharSkills[CurrentSkill]
-                self.CharSkills[CurrentSkill] = 85
-            else:
-                self.CharSkills[CurrentSkill] += PointsInvested
-            self.ClassSkillPoints -= PointsInvested
+            if CurrentSkill == "Handgun" or CurrentSkill == "Club":
+                if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
+                    self.CharCombatSkills[CurrentSkill] = 85
+                else:
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
+            else: 
+                if (self.CharSkills[CurrentSkill] + PointsInvested) > 85:
+                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    self.CharSkills[CurrentSkill] = 85
+                else:
+                    self.CharSkills[CurrentSkill] += PointsInvested
 
     def FreeSkillsGeneration (self):
         while self.FreeSkillPoints > 0:
