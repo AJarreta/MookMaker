@@ -15,7 +15,7 @@ print AverageResult
 import random
 import charclass
 import os
-'''from MookMaker import Main\MookMaker\ListsSource.txt'''
+import json
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
