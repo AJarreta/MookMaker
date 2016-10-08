@@ -35,7 +35,6 @@ class CthulhuCharacter(object):
         self.surnames = surnames
         self.languages = languages
         self.arts = arts
-        self.personalities = personalities
         return super(CthulhuCharacter, self).__init__(*args, **kwargs)
 
     def EDURoll(self):
@@ -102,7 +101,7 @@ class CthulhuCharacter(object):
         pass
 
     def ResetCharacter(self):
-        self.CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Titles": '', "Nationality": '', "Gender": '', "Personality": ''}
+        self.CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Titles": '', "Nationality": '', "Gender": '', "Income": '', "Savings": ''}
         self.CharStats = {"STR": 0, "CON": 0, "SIZ": 0, \
                           "INT": 0, "POW": 0, "DEX": 0, \
                           "APP": 0, "EDU": 0, "SAN": 0}

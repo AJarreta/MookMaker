@@ -59,7 +59,9 @@ while True:
                     print "That is not an available option."
                 else:
                     if UserResponse == 1:
-                        UserCharacter = charclass.Antiquarian(RandomDataSource["Nationalities"],
+                        UserCharacter = charclass.Antiquarian(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                                        RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
+                                        RandomDataSource["Languages"], RandomDataSource["Arts"]
                         cls()
                         pass
                     elif UserResponse == 2:
