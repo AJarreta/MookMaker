@@ -1,6 +1,0 @@
-British, American, French, German, Spanish, Mexican, Canadian, 
-English, French, German, Spanish, Latin, Arabic, Aramaic, Greek, Chinese, Hindi
-Paint, Sculpture, Dance, Singing, Film, Woodcarving, Drawing, Piano, String Instruments, Brass Instruments, Woodwind Instruments, Percussion Instruments, Puppeteering, Acrobacy
-Edna, Danielle, Mary, Jane, Louise
-Male_Names = {}
-Personalities = []

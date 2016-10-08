@@ -20,7 +20,8 @@ import json
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
-SourceFile = open("ListsSource.txt", "r")
+SourceFile = open("DataSource.json", "r")
+RandomDataSource = json.load(SourceFile)
 SourceFile.close()
 
 while True:
@@ -58,6 +59,7 @@ while True:
                     print "That is not an available option."
                 else:
                     if UserResponse == 1:
+                        UserCharacter = charclass.Antiquarian(RandomDataSource["Nationalities"],
                         cls()
                         pass
                     elif UserResponse == 2:

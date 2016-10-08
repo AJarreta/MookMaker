@@ -1,12 +1,71 @@
 {
+  "Nationalities": [
+    "American",
+    "Canadian",
+    "English",
+    "German",
+    "Austrian",
+    "French",
+    "Italian",
+    "Spanish",
+    "Mexican",
+    "Portuguese",
+    "Chinese",
+    "Russian",
+    "Japanese"
+  ],
   "FemaleNames": [
     "Edna",
     "Danielle",
     "Mary",
     "Jane",
     "Louise",
-    "Daria"
-
+    "Daria",
+    "Asenath",
+    "Ursula",
+    "Emma",
+    "Alexandra",
+    "Silvia",
+    "Carina",
+    "Claire",
+    "Katherine",
+    "Audrey",
+    "Lauren"
+  ],
+  "MaleNames": [
+    "John",
+    "James",
+    "Wilbur",
+    "Danforth",
+    "Walter",
+    "Howard",
+    "Anthony",
+    "Peter",
+    "Francis",
+    "Robert",
+    "Clark",
+    "Humphrey",
+    "Warren",
+    "Clint"
+  ],
+  "Surnames": [
+    "Danes",
+    "Phillips",
+    "Lewisham",
+    "Lewis",
+    "Maturin",
+    "Radcliffe",
+    "Lovecraft",
+    "Kiernan",
+    "Smith",
+    "Howard",
+    "Belknap",
+    "Parker",
+    "Swann",
+    "Lovecraft",
+    "King",
+    "Whipple",
+    "van Weiler",
+    "Matheson"
   ]
-
 }

@@ -28,10 +28,11 @@ class CthulhuCharacter(object):
     ReferenceCombat = sorted(CharCombatSkills)
     ReferenceSkills = sorted(CharSkills)
 
-    def __init__(self, nationalities, female_names, male_names, languages, personalities, arts):
+    def __init__(self, nationalities, female_names, male_names, surnames, languages, personalities, arts):
         self.nationalities = nationalities
         self.female_names = female_names
         self.male_names = male_names
+        self.surnames = surnames
         self.languages = languages
         self.arts = arts
         self.personalities = personalities
