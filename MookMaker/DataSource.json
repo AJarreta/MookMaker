@@ -70,31 +70,31 @@
   ],
   "Languages": [
   	"English",
-	"French",
-	"German",
-	"Spanish",
-	"Latin",
-	"Greek",
-	"Aramaic",
-	"Arabic",
-	"Chinese",
-	"Italian",
-	"Portuguese",
-	"Russian",
-	"Japanese",
+	  "French",
+	  "German",
+	  "Spanish",
+	  "Latin",
+	  "Greek",
+	  "Aramaic",
+	  "Arabic",
+	  "Chinese",
+	  "Italian",
+	  "Portuguese",
+	  "Russian",
+	  "Japanese"
   ],
   "Arts": [
     "Crooning",
-	"Opera Singing"
-	"Chorus Singing"
-	"Painting",
-	"Filmmaking",
-	"Folk Dance",
-	"Ballet",
-	"Woodwind Instruments",
-	"Percussion Instruments",
-	"Bowstring Instruments"
-	"Brass Instruments",
-	"Piano"
+	  "Opera Singing",
+	  "Chorus Singing",
+	  "Painting",
+	  "Filmmaking",
+	  "Folk Dance",
+	  "Ballet",
+	  "Woodwind Instruments",
+	  "Percussion Instruments",
+	  "Bowstring Instruments",
+	  "Brass Instruments",
+	  "Piano"
   ]
 }

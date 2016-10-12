@@ -61,7 +61,7 @@ while True:
                     if UserResponse == 1:
                         UserCharacter = charclass.Antiquarian(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
-                                        RandomDataSource["Languages"], RandomDataSource["Arts"]
+                                        RandomDataSource["Languages"], RandomDataSource["Arts"])
                         cls()
                         pass
                     elif UserResponse == 2:
@@ -90,7 +90,11 @@ while True:
                         pass
                     elif UserResponse == 10:
                         cls()
-                        pass
+                        UserCharacter = charclass.Antiquarian(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                                        RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
+                                        RandomDataSource["Languages"], RandomDataSource["Arts"])
+                        UserCharacter.CharacterGenerator()
+                        print UserCharacter
                     elif UserResponse == 11:
                         cls()
                         pass

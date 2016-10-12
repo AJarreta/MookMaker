@@ -3,7 +3,7 @@ import math
 
 class CthulhuCharacter(object):
 
-    CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Income": '', "Nationality": '', "Gender": '', "Personality": ''}
+    CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Titles": '', "Nationality": '', "Gender": '', "Income": '', "Savings": ''}
     CharStats = {"STR": 0, "CON": 0, "SIZ": 0, \
                  "INT": 0, "POW": 0, "DEX": 0, \
                  "APP": 0, "EDU": 0, "SAN": 0}
@@ -35,7 +35,6 @@ class CthulhuCharacter(object):
         self.surnames = surnames
         self.languages = languages
         self.arts = arts
-        return super(CthulhuCharacter, self).__init__(*args, **kwargs)
 
     def EDURoll(self):
         result = 0
@@ -214,7 +213,20 @@ class Lawyer(CthulhuCharacter):
             self.FreeSkillPoints -= PointsInvested
             
     def PersonalGeneration (self):
-        pass
+        GenderRoll = super(Lawyer, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, range(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, range(self.male_names) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, range(self.female_names) - 1)]
+        self.CharPersonal["Name"] += ' ', self.surnames[random.randint(0, range(self.surnames) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Lawyer"
+
         
 
 
