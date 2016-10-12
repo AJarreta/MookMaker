@@ -97,6 +97,48 @@ class CthulhuCharacter(object):
         return CurrentArt
 
     def PrintCharacter(self):
+        PrintCounter = 0
+        print "Name:", str(self.CharPersonal["Name"])
+        print "Profession:", self.CharPersonal["Profession"]
+        print "Titles:", self.CharPersonal["Titles"]
+        print "Age:", self.CharPersonal["Age"]
+        print "Gender:", self.CharPersonal["Gender"]
+        print "Nationality:", self.CharPersonal["Nationality"]
+        print "\n-------------------"
+        print "  CHARACTERISTICS"
+        print "-------------------\n"
+        for item in sorted(self.CharStats.keys()):
+            if PrintCounter == 2:
+                print str(item).rjust(15), str(self.CharStats[item]).ljust(10), "\n"
+                PrintCounter = 0
+            else:
+                print str(item).rjust(15), str(self.CharStats[item]).ljust(10),
+                PrintCounter += 1
+        print "\n"
+        for item in self.CharDerivedStats:
+            print str(item).rjust(5), str(self.CharDerivedStats[item]).ljust(5),
+        print "\n------------------"
+        print "  GENERAL SKILLS"
+        print "------------------\n"
+        for item in sorted(self.CharSkills.keys()):
+            if PrintCounter == 2:
+                print str(item).rjust(20), str(self.CharSkills[item]).ljust(5), "/n"
+                PrintCounter = 0
+            else:
+                print str(item).rjust(20), str(self.CharSkills[item]).ljust(5),
+                PrintCounter += 1
+        print "\n-----------------"
+        print "  COMBAT SKILLS"
+        print "-----------------\n"
+        for item in sorted(self.CharCombatSkills.keys()):
+            if PrintCounter == 2:
+                print str(item).rjust(20), str(self.CharCombatSkills[item]).ljust(5), "\n"
+                PrintCounter = 0
+            else:
+                print str(item).rjust(20), str(self.CharCombatSkills[item]).ljust(5),
+                PrintCounter += 1
+                
+
         pass
 
     def ResetCharacter(self):
@@ -222,7 +264,7 @@ class Lawyer(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Lawyer"
 
@@ -241,15 +283,17 @@ class Antiquarian(CthulhuCharacter):
         self.PersonalGeneration()
 
     def StatsGeneration(self):
-        self.CharStats["STR"] = super(Antiquarian, self).StatRollNormal
-        self.CharStats["CON"] = super(Antiquarian, self).StatRollNormal
+        self.CharStats["STR"] = super(Antiquarian, self).StatRollNormal()
+        self.CharStats["CON"] = super(Antiquarian, self).StatRollNormal()
         self.CharStats["SIZ"] = super(Antiquarian, self).StatRollXHigh()
-        self.CharStats["INT"] = super(Antiquarian, self).StatRollHigh
-        self.CharStats["POW"] = super(Antiquarian, self).StatRollXHigh
-        self.CharStats["DEX"] = super(Antiquarian, self).StatRollNormal
-        self.CharStats["APP"] = super(Antiquarian, self).StatRollNormal
+        self.CharStats["INT"] = super(Antiquarian, self).StatRollHigh()
+        self.CharStats["POW"] = super(Antiquarian, self).StatRollXHigh()
+        self.CharStats["DEX"] = super(Antiquarian, self).StatRollNormal()
+        self.CharStats["APP"] = super(Antiquarian, self).StatRollNormal()
         self.CharStats["EDU"] = super(Antiquarian, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -304,7 +348,7 @@ class Antiquarian(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -325,7 +369,7 @@ class Antiquarian(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Antiquarian"
 
@@ -426,7 +470,7 @@ class Parapsychologist(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Parapsychologist"
 
@@ -530,7 +574,7 @@ class Writer(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Writer"
 
@@ -638,7 +682,7 @@ class PrivateInvestigator(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Private Detective"
 
@@ -742,7 +786,7 @@ class Journalist(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Journalist"
 
@@ -852,7 +896,7 @@ class Dilettante(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Dilettante"
 
@@ -957,7 +1001,7 @@ class Doctor(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Doctor"
 
@@ -1060,7 +1104,7 @@ class CollegeProfessor(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "College Professor"
 
@@ -1160,7 +1204,7 @@ class Revolutionary(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Revolutionary"
 
@@ -1261,7 +1305,7 @@ class Farmer(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Farmer"
 
@@ -1361,7 +1405,7 @@ class Politician(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Politician"
 
@@ -1461,7 +1505,7 @@ class Athlete(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Athlete"
 
@@ -1563,7 +1607,7 @@ class Missionary(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Missionary"
 
@@ -1669,7 +1713,7 @@ class Soldier(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Soldier"
 
@@ -1775,7 +1819,7 @@ class Gangster(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Gangster"
 
@@ -1879,7 +1923,7 @@ class Police(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Police"
 
@@ -1979,6 +2023,6 @@ class Drifter(CthulhuCharacter):
         if self.CharPersonal["Gender"] == "Male":
             self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Drifter"
