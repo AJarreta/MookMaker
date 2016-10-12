@@ -75,7 +75,7 @@ class CthulhuCharacter(object):
         return result
 
     def SetLanguageSkills(self):
-        LanguageIndex = random.randint(0, len(languages) - 1)
+        LanguageIndex = random.randint(0, len(self.languages) - 1)
         CurrentLanguage = "Other Language:", self.languages[LanguageIndex]
         if "Other Language" in self.CharSkills.keys:
             self.CharSkills[CurrentLanguage] = self.CharSkills.pop("Other Language")
@@ -124,7 +124,7 @@ class CthulhuCharacter(object):
 class Lawyer(CthulhuCharacter):
 
     ClassSkills = ["Library Use", "Accounting", "Credit Rating", "Fast Talk", "Law", "Persuade", \
-                   "Other Language: Latin", "Bargain", "Psychology"]
+                   "Other Language", "Bargain", "Psychology"]
 
     def CharacterGenerator(self):
         self.StatsGeneration()
@@ -201,15 +201,15 @@ class Lawyer(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
                 if (self.CharCombatSkills[CurrentSkill] + PointsInvested) > 85:
-                    PointsInvested = 85 - self.CharSkills[CurrentSkill]
+                    PointsInvested = 85 - self.CharCombatSkills[CurrentSkill]
                     self.CharCombatSkills[CurrentSkill] = 85
                 else:
-                    self.CharSkills[CurrentSkill] += PointsInvested
+                    self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
             
     def PersonalGeneration (self):
@@ -218,12 +218,11 @@ class Lawyer(CthulhuCharacter):
             self.CharPersonal["Gender"] = "Male"
         else:
             self.CharPersonal["Gender"] = "Female"
-        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, range(self.nationalities) - 1)]
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
         if self.CharPersonal["Gender"] == "Male":
-            self.CharPersonal["Name"] = self.male_names[random.randint(0, range(self.male_names) - 1)]
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, range(self.female_names) - 1)]
-        self.CharPersonal["Name"] += ' ', self.surnames[random.randint(0, range(self.surnames) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Lawyer"
 
@@ -316,6 +315,20 @@ class Antiquarian(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(Antiquarian, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Antiquarian"
+
 class Parapsychologist(CthulhuCharacter):
 
     ClassSkills = ["Anthropology", "Archaeology", "Library Use", "Occult", "Other Language", "History", "Psychology", \
@@ -403,6 +416,20 @@ class Parapsychologist(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(Parapsychologist, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Parapsychologist"
+
 class Writer(CthulhuCharacter):
 
     ClassSkills = ["Library Use", "Fast Talk", "Persuade", "Own Language", "Other Language", "History", "Psychology"]
@@ -444,8 +471,8 @@ class Writer(CthulhuCharacter):
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
     def ClassSkillsGeneration (self):
-        while range(self.ClassSkills) < 9:
-            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (range(self.ReferenceSkills)-1))]
+        while len(self.ClassSkills) < 9:
+            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (len(self.ReferenceSkills)-1))]
             if CurrentRandomSkill not in self.ClassSkills:
                 self.ClassSkills.append(CurrentRandomSkill)
         self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
@@ -492,6 +519,20 @@ class Writer(CthulhuCharacter):
                 else:
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
+
+    def PersonalGeneration (self):
+        GenderRoll = super(Writer, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Writer"
 
 class PrivateInvestigator(CthulhuCharacter):
 
@@ -587,6 +628,20 @@ class PrivateInvestigator(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(PrivateInvestigator, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Private Detective"
+
 class Journalist(CthulhuCharacter):
     
     ClassSkills = ["Fast Talk", "Persuade", "Bargain", "Other Language", "Own Language", "Sneak", "Listen"]
@@ -628,8 +683,8 @@ class Journalist(CthulhuCharacter):
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
     def ClassSkillsGeneration (self):
-        while range(self.ClassSkills) < 9:
-            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (range(self.ReferenceSkills)-1))]
+        while len(self.ClassSkills) < 9:
+            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (len(self.ReferenceSkills)-1))]
             if CurrentRandomSkill not in self.ClassSkills:
                 self.ClassSkills.append(CurrentRandomSkill)
         self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
@@ -676,6 +731,20 @@ class Journalist(CthulhuCharacter):
                 else:
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
+
+    def PersonalGeneration (self):
+        GenderRoll = super(Journalist, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Journalist"
 
 class Dilettante(CthulhuCharacter):
 
@@ -724,8 +793,8 @@ class Dilettante(CthulhuCharacter):
             self.CharDerivedStats["Dam. Bonus"] = '+1d6'
 
     def ClassSkillsGeneration (self):
-        while range(self.ClassSkills) < 9:
-            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (range(self.ReferenceSkills)-1))]
+        while len(self.ClassSkills) < 9:
+            CurrentRandomSkill = self.ReferenceSkills[random.randint(0, (len(self.ReferenceSkills)-1))]
             if CurrentRandomSkill not in self.ClassSkills:
                 self.ClassSkills.append(CurrentRandomSkill)
         self.CharSkills["Dodge"] = self.CharStats["DEX"] * 2
@@ -772,6 +841,20 @@ class Dilettante(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
+
+    def PersonalGeneration (self):
+        GenderRoll = super(Dilettante, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Dilettante"
 
 
 
@@ -864,6 +947,20 @@ class Doctor(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(Doctor, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Doctor"
+
 class CollegeProfessor(CthulhuCharacter):
 
     ClassSkills = ["Anthropology", "Archaeology", "Astronomy", "Biology", "Library Use", "Occult", "Persuade", "Geology", \
@@ -953,6 +1050,20 @@ class CollegeProfessor(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(CollegeProfessor, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "College Professor"
+
 class Revolutionary(CthulhuCharacter):
 
     ClassSkills = ["Library Use", "Hide", "Conceal", "Disguise", "Sneak", "Fast Talk", "Other Language", "Psychology", "Persuade"]
@@ -1038,6 +1149,20 @@ class Revolutionary(CthulhuCharacter):
                 else:
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
+
+    def PersonalGeneration (self):
+        GenderRoll = super(Revolutionary, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Revolutionary"
 
 class Farmer(CthulhuCharacter):
 
@@ -1126,6 +1251,20 @@ class Farmer(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(Farmer, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Farmer"
+
 class Politician(CthulhuCharacter):
 
     ClassSkills = ["Accounting", "Credit Rating", "Fast Talk", "Law", "Persuade", "History", "Bargain", "Psychology", "Listen"]
@@ -1212,6 +1351,20 @@ class Politician(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(Politician, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Politician"
+
 class Athlete(CthulhuCharacter):
 
     ClassSkills = ["Credit Rating", "Ride", "Dodge", "Throw", "Swim", "Psychology", "Jump", "Climb", "Martial Arts"]
@@ -1297,6 +1450,20 @@ class Athlete(CthulhuCharacter):
                 else:
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
+
+    def PersonalGeneration (self):
+        GenderRoll = super(Athlete, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Athlete"
 
 class Missionary(CthulhuCharacter):
 
@@ -1385,6 +1552,20 @@ class Missionary(CthulhuCharacter):
                 else:
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
+
+    def PersonalGeneration (self):
+        GenderRoll = super(Missionary, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Missionary"
 
 class Soldier(CthulhuCharacter):
 
@@ -1478,6 +1659,20 @@ class Soldier(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(Soldier, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Soldier"
+
 class Gangster(CthulhuCharacter):
 
     ClassSkills = ["Handgun", "Drive Auto", "Credit Rating", "Knife", "Fast Talk", "Law", "Spot Hidden", "Listen", "Bargain", \
@@ -1570,6 +1765,20 @@ class Gangster(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(Gangster, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Gangster"
+
 class Police(CthulhuCharacter):
 
     ClassSkills = ["Handgun", "Drive Auto", "Fast Talk", "Law", "Spot Hidden", "Sneak", "Listen", "Conceal", "Club", "First Aid"]
@@ -1660,6 +1869,20 @@ class Police(CthulhuCharacter):
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
 
+    def PersonalGeneration (self):
+        GenderRoll = super(Police, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Police"
+
 class Drifter(CthulhuCharacter):
 
     ClassSkills = ["Fast Talk", "Spot Hidden", "Sneak", "Listen", "Conceal", "First Aid", "Bargain", "Climb", "Locksmith"]
@@ -1745,3 +1968,17 @@ class Drifter(CthulhuCharacter):
                 else:
                     self.CharCombatSkills[CurrentSkill] += PointsInvested
             self.FreeSkillPoints -= PointsInvested
+
+    def PersonalGeneration (self):
+        GenderRoll = super(Drifter, self).PercentRoll()
+        if GenderRoll < 50:
+            self.CharPersonal["Gender"] = "Male"
+        else:
+            self.CharPersonal["Gender"] = "Female"
+        self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
+        if self.CharPersonal["Gender"] == "Male":
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+        else:
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)]
+        self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
+        self.CharPersonal["Profession"] = "Drifter"
