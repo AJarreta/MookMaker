@@ -10,7 +10,8 @@ SourceFile = open("DataSource.json", "r")
 RandomDataSource = json.load(SourceFile)
 SourceFile.close()
 
-ValidInputAnswers = ['y', 'Y', 'yes', 'Yes', 'YES', 'n', 'N', 'no', 'No', 'NO']
+ValidInputYes = ['y', 'Y', 'yes', 'Yes', 'YES']
+ValidInputNo = ['n', 'N', 'no', 'No', 'NO']
 
 UserCharacter = charclass.CthulhuCharacter(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], RandomDataSource["MaleNames"], \
                                            RandomDataSource["Surnames"], RandomDataSource["Nationalities"], RandomDataSource["Languages"], \
@@ -62,6 +63,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 2:
                         cls()
@@ -71,6 +73,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 3:
                         cls()
@@ -80,6 +83,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 4:
                         cls()
@@ -89,6 +93,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 5:
                         cls()
@@ -98,6 +103,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 6:
                         cls()
@@ -107,6 +113,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 7:
                         cls()
@@ -116,6 +123,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 8:
                         cls()
@@ -125,6 +133,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 9:
                         cls()
@@ -134,6 +143,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 10:
                         cls()
@@ -143,6 +153,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 11:
                         cls()
@@ -152,6 +163,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 12:
                         cls()
@@ -161,6 +173,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 13:
                         cls()
@@ -170,6 +183,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 14:
                         cls()
@@ -179,6 +193,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 15:
                         cls()
@@ -188,6 +203,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 16:
                         cls()
@@ -197,6 +213,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 17:
                         cls()
@@ -206,6 +223,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 18:
                         cls()
@@ -215,6 +233,7 @@ while True:
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
+                        ResetSwitch = False
                         os.system('pause')
                     elif UserResponse == 19:
                         cls()
@@ -238,21 +257,29 @@ while True:
             while True:
                 try:
                     UserInput = raw_input("Are you sure you want to delete the current character? (yes/ no):")
-                except UserInput not in ValidInputAnswers:
+                except UserInput not in ValidInputYes or UserInput not in ValidInputNo:
                     cls()
                     print "There has been a mistake. Please respond again."
-                elif UserInput == 'y' or UserInput == 'Y'or UserInput == 'yes' or UserInput == 'Yes' or UserInput == 'YES':
-                    cls()
-                    UserCharacter.ResetCharacter()
-                    ResetSwitch = True
-                    print "The character you created has been deleted."
                 else:
-                    pass
+                    if UserInput in ValidInputYes:
+                        cls()
+                        UserCharacter.ResetCharacter()
+                        ResetSwitch = True
+                        print "The character you created has been deleted."
+                    else:
+                        pass
         elif UserResponse == 4:
             cls()
+            if isinstance(UserCharacter, CthulhuCharacter):
+                print "You have not created any characters yet."
+            elif ResetSwitch == True:
+                print "You have currently no created characters."
+            else:
+                pass
             pass
         elif UserResponse == 5:
             cls()
+
             pass
         elif UserResponse == 6:
             cls()
