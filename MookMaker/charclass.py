@@ -386,13 +386,13 @@ class Parapsychologist(CthulhuCharacter):
         self.PersonalGeneration()
 
     def StatsGeneration(self):
-        self.CharStats["STR"] = super(Parapsychologist, self).StatRollNormal
-        self.CharStats["CON"] = super(Parapsychologist, self).StatRollNormal
+        self.CharStats["STR"] = super(Parapsychologist, self).StatRollNormal()
+        self.CharStats["CON"] = super(Parapsychologist, self).StatRollNormal()
         self.CharStats["SIZ"] = super(Parapsychologist, self).StatRollXHigh()
-        self.CharStats["INT"] = super(Parapsychologist, self).StatRollNormal
-        self.CharStats["POW"] = super(Parapsychologist, self).StatRollXHigh
-        self.CharStats["DEX"] = super(Parapsychologist, self).StatRollNormal
-        self.CharStats["APP"] = super(Parapsychologist, self).StatRollHigh
+        self.CharStats["INT"] = super(Parapsychologist, self).StatRollNormal()
+        self.CharStats["POW"] = super(Parapsychologist, self).StatRollXHigh()
+        self.CharStats["DEX"] = super(Parapsychologist, self).StatRollNormal()
+        self.CharStats["APP"] = super(Parapsychologist, self).StatRollHigh()
         self.CharStats["EDU"] = super(Parapsychologist, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
@@ -802,19 +802,24 @@ class Dilettante(CthulhuCharacter):
         self.PersonalGeneration()
 
     def StatsGeneration(self):
-        CharStatsWorkCopy = self.CharStats.items()
-        XHighStat = 0
-        HighStat = 0
-        while XHighStat == HigHStat or XHighStat == 2 or HighStat == 2:
-            XHighStat = random.randint(0, 6)
-            HigHStat = random.randint(0, 6)
-        for k, v in CharStatsWorkCopy:
-            if k == XHighStat or k == 2:
-                self.CharStats[v] = super(Dilettante, self).StatRollXHigh()
-            elif k == HighStat:
-                self.CharStats[v] = super(Dilettante, self).StatRollHigh()
+        CharStatsWorkCopy = self.CharStats.keys()
+        CharStatsWorkCopy.remove("SIZ")
+        CharStatsWorkCopy.remove("EDU")
+        CharStatsWorkCopy.remove("SAN")
+        while True:
+            try:
+                StatXHigh = CharStatsWorkCopy[random.randint(0, (len(CharStatsWorkCopy) - 1))]
+                StatHigh = CharStatsWorkCopy[random.randint(0, (len(CharStatsWorkCopy) - 1))]
+            except StatXHigh == StatHigh:
+                pass
+        for item in CharStatsWorkCopy:
+            if item == StatXHigh:
+                self.CharStats[item] = super(Dilettante, self).StatRollXHigh()
+            elif item == StatHigh:
+                self.CharStats[item] = super(Dilettante, self).StatRollHigh()
             else:
-                self.CharStats[v] = super(Dilettante, self).StatRollNormal()
+                self.CharStats[item] = super(Dilettante, self).StatRollNormal()
+        self.CharStats["SIZ"] = super(Dilettante, self).StatRollXHigh()
         self.CharStats["EDU"] = super(Dilettante, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
 
@@ -916,7 +921,7 @@ class Doctor(CthulhuCharacter):
 
     def StatsGeneration(self):
         self.CharStats["STR"] = super(Doctor, self).StatRollNormal()
-        self.CharStats["CON"] = super(Doctor, self).StatRollNormal
+        self.CharStats["CON"] = super(Doctor, self).StatRollNormal()
         self.CharStats["SIZ"] = super(Doctor, self).StatRollXHigh()
         self.CharStats["INT"] = super(Doctor, self).StatRollHigh()
         self.CharStats["POW"] = super(Doctor, self).StatRollNormal()

@@ -26,10 +26,10 @@ while True:
         print "1. Generate a random character."
         print "2. Show last generated character."
         print "3. Delete last generated character."
-        print "4. Save the character in a text file."
-        print "5. Load a character from a file."
-        print "6. Print the character."
-        print "7. Settings."
+        print "4. Save the character in a text file. (IN DEVELOPMENT)"
+        print "5. Load a character from a file. (IN DEVELOPMENT)"
+        print "6. Print the character. (IN DEVELOPMENT)"
+        print "7. Settings. (IN DEVELOPMENT)"
         print "8. Exit."
         UserResponse = int(raw_input("Choose an option: "))
     except ValueError:
