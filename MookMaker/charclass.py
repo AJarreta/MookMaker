@@ -395,6 +395,8 @@ class Parapsychologist(CthulhuCharacter):
         self.CharStats["APP"] = super(Parapsychologist, self).StatRollHigh()
         self.CharStats["EDU"] = super(Parapsychologist, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -495,6 +497,8 @@ class Writer(CthulhuCharacter):
         self.CharStats["APP"] = super(Writer, self).StatRollHigh()
         self.CharStats["EDU"] = super(Writer, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -600,6 +604,8 @@ class PrivateInvestigator(CthulhuCharacter):
         self.CharStats["APP"] = super(PrivateInvestigator, self).StatRollNormal()
         self.CharStats["EDU"] = super(PrivateInvestigator, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -707,6 +713,8 @@ class Journalist(CthulhuCharacter):
         self.CharStats["APP"] = super(Journalist, self).StatRollXHigh()
         self.CharStats["EDU"] = super(Journalist, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -807,11 +815,10 @@ class Dilettante(CthulhuCharacter):
         CharStatsWorkCopy.remove("EDU")
         CharStatsWorkCopy.remove("SAN")
         while True:
-            try:
-                StatXHigh = CharStatsWorkCopy[random.randint(0, (len(CharStatsWorkCopy) - 1))]
-                StatHigh = CharStatsWorkCopy[random.randint(0, (len(CharStatsWorkCopy) - 1))]
-            except StatXHigh == StatHigh:
-                pass
+            StatXHigh = CharStatsWorkCopy[random.randint(0, (len(CharStatsWorkCopy) - 1))]
+            StatHigh = CharStatsWorkCopy[random.randint(0, (len(CharStatsWorkCopy) - 1))]
+            if StatXHigh != StatHigh:
+                break
         for item in CharStatsWorkCopy:
             if item == StatXHigh:
                 self.CharStats[item] = super(Dilettante, self).StatRollXHigh()
@@ -822,6 +829,8 @@ class Dilettante(CthulhuCharacter):
         self.CharStats["SIZ"] = super(Dilettante, self).StatRollXHigh()
         self.CharStats["EDU"] = super(Dilettante, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -880,7 +889,7 @@ class Dilettante(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -929,6 +938,8 @@ class Doctor(CthulhuCharacter):
         self.CharStats["APP"] = super(Doctor, self).StatRollNormal()
         self.CharStats["EDU"] = super(Doctor, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1032,6 +1043,8 @@ class CollegeProfessor(CthulhuCharacter):
         self.CharStats["APP"] = super(CollegeProfessor, self).StatRollNormal()
         self.CharStats["EDU"] = super(CollegeProfessor, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1134,6 +1147,8 @@ class Revolutionary(CthulhuCharacter):
         self.CharStats["APP"] = super(Revolutionary, self).StatRollHigh()
         self.CharStats["EDU"] = super(Revolutionary, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1235,6 +1250,8 @@ class Farmer(CthulhuCharacter):
         self.CharStats["APP"] = super(Farmer, self).StatRollNormal()
         self.CharStats["EDU"] = super(Farmer, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1335,6 +1352,8 @@ class Politician(CthulhuCharacter):
         self.CharStats["APP"] = super(Politician, self).StatRollXHigh()
         self.CharStats["EDU"] = super(Politician, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1435,6 +1454,8 @@ class Athlete(CthulhuCharacter):
         self.CharStats["APP"] = super(Athlete, self).StatRollNormal()
         self.CharStats["EDU"] = super(Athlete, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1536,6 +1557,8 @@ class Missionary(CthulhuCharacter):
         self.CharStats["APP"] = super(Missionary, self).StatRollNormal()
         self.CharStats["EDU"] = super(Missionary, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1638,6 +1661,8 @@ class Soldier(CthulhuCharacter):
         self.CharStats["APP"] = super(Soldier, self).StatRollNormal()
         self.CharStats["EDU"] = super(Soldier, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1744,6 +1769,8 @@ class Gangster(CthulhuCharacter):
         self.CharStats["APP"] = super(Gangster, self).StatRollHigh()
         self.CharStats["EDU"] = super(Gangster, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1849,6 +1876,8 @@ class Police(CthulhuCharacter):
         self.CharStats["APP"] = super(Police, self).StatRollNormal()
         self.CharStats["EDU"] = super(Police, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
@@ -1953,6 +1982,8 @@ class Drifter(CthulhuCharacter):
         self.CharStats["APP"] = super(Drifter, self).StatRollNormal()
         self.CharStats["EDU"] = super(Drifter, self).EDURoll()
         self.CharStats["SAN"] = self.CharStats["POW"] * 5
+        self.ClassSkillPoints = self.CharStats["EDU"] * 20
+        self.FreeSkillPoints = self.CharStats["EDU"] * 10
 
     def DerivedStatsGeneration(self):
         self.CharDerivedStats["HP"] = int(math.ceil((self.CharStats["CON"] + self.CharStats["SIZ"]) / float(2)))
