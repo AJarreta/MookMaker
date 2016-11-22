@@ -122,7 +122,7 @@ class CthulhuCharacter(object):
         print "------------------\n"
         for item in sorted(self.CharSkills.keys()):
             if PrintCounter == 2:
-                print str(item).rjust(20), str(self.CharSkills[item]).ljust(5), "/n"
+                print str(item).rjust(20), str(self.CharSkills[item]).ljust(5), "\n"
                 PrintCounter = 0
             else:
                 print str(item).rjust(20), str(self.CharSkills[item]).ljust(5),
@@ -451,7 +451,7 @@ class Parapsychologist(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -557,7 +557,7 @@ class Writer(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -667,7 +667,7 @@ class PrivateInvestigator(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -773,7 +773,7 @@ class Journalist(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -996,7 +996,7 @@ class Doctor(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1101,7 +1101,7 @@ class CollegeProfessor(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1203,7 +1203,7 @@ class Revolutionary(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1306,7 +1306,7 @@ class Farmer(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1408,7 +1408,7 @@ class Politician(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1510,7 +1510,7 @@ class Athlete(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1614,7 +1614,7 @@ class Missionary(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1722,7 +1722,7 @@ class Soldier(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1830,7 +1830,7 @@ class Gangster(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -1936,7 +1936,7 @@ class Police(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints
@@ -2038,7 +2038,7 @@ class Drifter(CthulhuCharacter):
                 else:
                     self.CharSkills[CurrentSkill] += PointsInvested
             else:
-                CurrentSkill = ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
+                CurrentSkill = self.ReferenceCombat[(random.randint(0, len(self.ReferenceCombat))) - 1]
                 PointsInvested = random.randint(10, 85)
                 if (self.FreeSkillPoints - PointsInvested) < 0:
                     PointsInvested = self.FreeSkillPoints

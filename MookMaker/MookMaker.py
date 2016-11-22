@@ -12,6 +12,7 @@ SourceFile.close()
 
 ValidInputYes = ['y', 'Y', 'yes', 'Yes', 'YES']
 ValidInputNo = ['n', 'N', 'no', 'No', 'NO']
+ResetSwitch = False
 
 UserCharacter = charclass.CthulhuCharacter(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], RandomDataSource["MaleNames"], \
                                            RandomDataSource["Surnames"], RandomDataSource["Nationalities"], RandomDataSource["Languages"], \
@@ -244,7 +245,7 @@ while True:
                         pass    
         elif UserResponse == 2:
             cls()
-            if isinstance(UserCharacter, CthulhuCharacter):
+            if type(UserCharacter) == charclass.CthulhuCharacter:
                 print "You have not created any characters yet."
             elif ResetSwitch == True:
                 print "You have currently no created characters."
@@ -255,9 +256,8 @@ while True:
             pass
         elif UserResponse == 3:
             while True:
-                try:
-                    UserInput = raw_input("Are you sure you want to delete the current character? (yes/ no):")
-                except UserInput not in ValidInputYes or UserInput not in ValidInputNo:
+                UserInput = raw_input("Are you sure you want to delete the current character? (yes/ no):")
+                if not UserInput in ValidInputYes and not UserInput in ValidInputNo:
                     cls()
                     print "There has been a mistake. Please respond again."
                 else:
@@ -266,20 +266,20 @@ while True:
                         UserCharacter.ResetCharacter()
                         ResetSwitch = True
                         print "The character you created has been deleted."
+                        break
                     else:
-                        pass
+                        cls()
+                        break
         elif UserResponse == 4:
             cls()
-            if isinstance(UserCharacter, CthulhuCharacter):
+            if type(UserCharacter) == charclass.CthulhuCharacter:
                 print "You have not created any characters yet."
             elif ResetSwitch == True:
                 print "You have currently no created characters."
             else:
                 pass
-            pass
         elif UserResponse == 5:
             cls()
-
             pass
         elif UserResponse == 6:
             cls()
