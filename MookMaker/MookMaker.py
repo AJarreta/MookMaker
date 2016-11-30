@@ -10,6 +10,14 @@ SourceFile = open("DataSource.json", "r")
 RandomDataSource = json.load(SourceFile)
 SourceFile.close()
 
+DefaultDirPath = os.getcwd() + "\MookChars"
+while True:
+    try:
+        os.mkdir(DefaultDirPath)
+    except OSError:
+        break
+        
+
 ValidInputYes = ['y', 'Y', 'yes', 'Yes', 'YES']
 ValidInputNo = ['n', 'N', 'no', 'No', 'NO']
 ResetSwitch = False
@@ -277,7 +285,19 @@ while True:
             elif ResetSwitch == True:
                 print "You have currently no created characters."
             else:
-                pass
+                while True:
+                try:
+                    print "-------------------"
+                    print " SAVE A CHARACTER"
+                    print "-------------------"
+                    print "The character will be saved in:", DefaultDirPath
+                    print "1. Change the directory path"
+                    print "2. Save the character"
+                    print "3. Back"
+                    UserResponse = int(raw_input("Choose an option: "))
+                except ValueError:
+                    print 
+                else:
         elif UserResponse == 5:
             cls()
             pass
