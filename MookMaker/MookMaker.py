@@ -261,7 +261,6 @@ while True:
                 UserCharacter.PrintCharacter()
                 os.system('pause')
                 cls()
-            pass
         elif UserResponse == 3:
             while True:
                 UserInput = raw_input("Are you sure you want to delete the current character? (yes/ no):")
@@ -278,6 +277,13 @@ while True:
                     else:
                         cls()
                         break
+# --------------------------------------------------------
+# IN DEVELOPMENT
+# To complete:
+# -Setting the method to change the working directory
+# -Setting the method to create a new file
+# -Handling exception management
+# --------------------------------------------------------
         elif UserResponse == 4:
             cls()
             if type(UserCharacter) == charclass.CthulhuCharacter:
@@ -286,18 +292,42 @@ while True:
                 print "You have currently no created characters."
             else:
                 while True:
-                try:
-                    print "-------------------"
-                    print " SAVE A CHARACTER"
-                    print "-------------------"
-                    print "The character will be saved in:", DefaultDirPath
-                    print "1. Change the directory path"
-                    print "2. Save the character"
-                    print "3. Back"
-                    UserResponse = int(raw_input("Choose an option: "))
-                except ValueError:
-                    print 
-                else:
+                    try:
+                        print "-------------------"
+                        print " SAVE A CHARACTER"
+                        print "-------------------"
+                        print "The character will be saved in:", DefaultDirPath
+                        print "1. Change the directory path"
+                        print "2. Save the character"
+                        print "3. Back"
+                        UserResponse = int(raw_input("Choose an option: "))
+                    except ValueError:
+                        print "That is not an available option"
+                    else:
+                        if UserResponse == 1:
+                            pass
+                        elif UserResponse == 2:
+                            CharFileName = DefaultDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
+                            NewCharFile = open(CharFileName, "w")
+# This "writelines" method needs to be changed to "write"
+                            NewCharFile.writelines("Name: " + UserCharacter.CharPersonal["Name"])
+                            NewCharFile.writelines("\nProfession: " + UserCharacter.CharPersonal["Profession"])
+                            NewCharFile.writelines("\nTitles: " + UserCharacter.CharPersonal["Titles"])
+                            NewCharFile.writelines("\nAge: " + str(UserCharacter.CharPersonal["Age"]))
+                            NewCharFile.writelines("\nGender: " + UserCharacter.CharPersonal["Gender"])
+                            NewCharFile.writelines("\nNationality: " + UserCharacter.CharPersonal["Nationality"])
+                            NewCharFile.writelines("\n-------------------")
+                            NewCharFile.writelines("\n  CHARACTERISTICS")
+                            NewCharFile.writelines("\n-------------------")
+                            NewCharFile.close()
+                            cls()
+                            break
+                        elif UserResponse == 3:
+                            cls()
+                            break
+                        else:
+                           cls()
+                           print "That is not an available option"
         elif UserResponse == 5:
             cls()
             pass

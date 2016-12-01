@@ -262,9 +262,9 @@ class Lawyer(CthulhuCharacter):
             self.CharPersonal["Gender"] = "Female"
         self.CharPersonal["Nationality"] = self.nationalities[random.randint(0, len(self.nationalities) - 1)]
         if self.CharPersonal["Gender"] == "Male":
-            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+            self.CharPersonal["Name"] = self.male_names[random.randint(0, len(self.male_names) - 1)] + " " + self.surnames[random.randint(0, len(self.surnames) - 1)]
         else:
-            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)], self.surnames[random.randint(0, len(self.surnames) - 1)]
+            self.CharPersonal["Name"] = self.female_names[random.randint(0, len(self.female_names) - 1)] + " " + self.surnames[random.randint(0, len(self.surnames) - 1)]
         self.CharPersonal["Age"] = self.CharStats["EDU"] + 6 + random.randint(-5, 13)
         self.CharPersonal["Profession"] = "Lawyer"
 
