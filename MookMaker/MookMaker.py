@@ -11,6 +11,7 @@ RandomDataSource = json.load(SourceFile)
 SourceFile.close()
 
 DefaultDirPath = os.getcwd() + "\MookChars"
+
 while True:
     try:
         os.mkdir(DefaultDirPath)
@@ -29,6 +30,9 @@ UserCharacter = charclass.CthulhuCharacter(RandomDataSource["Nationalities"], Ra
 while True:
     try:
         print "Welcome to MookMaker, the random character generator for The Call of Cthulhu!"
+# add conditional "If" to warn the user there is a created character
+        if type(UserCharacter) != charclass.CthulhuCharacter:
+            print "You have created a %s-class character." % str(type(UserCharacter))
         print "------"
         print " MENU"
         print "------"
@@ -309,16 +313,42 @@ while True:
                         elif UserResponse == 2:
                             CharFileName = DefaultDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
                             NewCharFile = open(CharFileName, "w")
-# This "writelines" method needs to be changed to "write"
-                            NewCharFile.writelines("Name: " + UserCharacter.CharPersonal["Name"])
-                            NewCharFile.writelines("\nProfession: " + UserCharacter.CharPersonal["Profession"])
-                            NewCharFile.writelines("\nTitles: " + UserCharacter.CharPersonal["Titles"])
-                            NewCharFile.writelines("\nAge: " + str(UserCharacter.CharPersonal["Age"]))
-                            NewCharFile.writelines("\nGender: " + UserCharacter.CharPersonal["Gender"])
-                            NewCharFile.writelines("\nNationality: " + UserCharacter.CharPersonal["Nationality"])
-                            NewCharFile.writelines("\n-------------------")
-                            NewCharFile.writelines("\n  CHARACTERISTICS")
-                            NewCharFile.writelines("\n-------------------")
+                            NewCharFile.write("Name: " + UserCharacter.CharPersonal["Name"])
+                            NewCharFile.write("\nProfession: " + UserCharacter.CharPersonal["Profession"])
+                            NewCharFile.write("\nTitles: " + UserCharacter.CharPersonal["Titles"])
+                            NewCharFile.write("\nAge: " + str(UserCharacter.CharPersonal["Age"]))
+                            NewCharFile.write("\nGender: " + UserCharacter.CharPersonal["Gender"])
+                            NewCharFile.write("\nNationality: " + UserCharacter.CharPersonal["Nationality"])
+                            WriteCounter = 0
+                            NewCharFile.write("\n-----------------")                            
+                            NewCharFile.write("\n CHARACTERISTICS")
+                            NewCharFile.write("\n-----------------")
+                            for item in sorted(UserCharacter.CharStats.keys()):
+                                if WriteCounter == 2:
+                                    NewCharFile.write(str(item).rjust(15), str(UserCharacter.CharStats[item]).ljust(10))
+                                    NewCharFile.write("\n")
+                                    WriteCounter = 0
+                                else:
+                                    NewCharFile.write(str(item).rjust(15), str(UserCharacter.CharStats[item]).ljust(10))
+                                    WriteCounter += 1
+                            NewCharFile.write("\n----------------")
+                            NewCharFile.write("\n GENERAL SKILLS")
+                            NewCharFile.write("\n----------------")
+                            for item in sorted(UserCharacter.CharSkills.keys):
+                                if WriteCounter == 2:
+                                    NewCharFile.write("\n")
+                                    WriteCounter = 0
+                                else:
+                                    WriteCounter += 1
+                            NewCharFile.write("\n---------------")
+                            NewCharFile.write("\n COMBAT SKILLS")
+                            NewCharFile.write("\n---------------")
+                            for item in sorted(UserCharacter.CharCombatSkills.keys):
+                                if WriteCounter == 2:
+                                    NewCharFile.write("\n")
+                                    WriteCounter = 0
+                                else:
+                                    WriteCounter += 1
                             NewCharFile.close()
                             cls()
                             break

@@ -137,8 +137,7 @@ class CthulhuCharacter(object):
             else:
                 print str(item).rjust(20), str(self.CharCombatSkills[item]).ljust(5),
                 PrintCounter += 1
-                
-
+              
         pass
 
     def ResetCharacter(self):
