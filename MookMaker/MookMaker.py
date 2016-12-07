@@ -322,32 +322,45 @@ while True:
                             WriteCounter = 0
                             NewCharFile.write("\n-----------------")                            
                             NewCharFile.write("\n CHARACTERISTICS")
-                            NewCharFile.write("\n-----------------")
+                            NewCharFile.write("\n-----------------\n")
                             for item in sorted(UserCharacter.CharStats.keys()):
                                 if WriteCounter == 2:
-                                    NewCharFile.write(str(item).rjust(15), str(UserCharacter.CharStats[item]).ljust(10))
+                                    NewCharFile.write(str(item).rjust(15) + " ")
+                                    NewCharFile.write(str(UserCharacter.CharStats[item]).ljust(10))
                                     NewCharFile.write("\n")
                                     WriteCounter = 0
                                 else:
-                                    NewCharFile.write(str(item).rjust(15), str(UserCharacter.CharStats[item]).ljust(10))
+                                    NewCharFile.write(str(item).rjust(15) + " ")
+                                    NewCharFile.write(str(UserCharacter.CharStats[item]).ljust(10))
                                     WriteCounter += 1
+                            for item in sorted(UserCharacter.CharDerivedStats):
+                                    NewCharFile.write(str(item).rjust(12) + " ")
+                                    NewCharFile.write(str(UserCharacter.CharDerivedStats[item]).ljust(5))
                             NewCharFile.write("\n----------------")
                             NewCharFile.write("\n GENERAL SKILLS")
-                            NewCharFile.write("\n----------------")
-                            for item in sorted(UserCharacter.CharSkills.keys):
+                            NewCharFile.write("\n----------------\n")
+                            for item in sorted(UserCharacter.CharSkills):
                                 if WriteCounter == 2:
+                                    NewCharFile.write(str(item).rjust(20) + " ")
+                                    NewCharFile.write(str(UserCharacter.CharSkills[item]).ljust(5))
                                     NewCharFile.write("\n")
                                     WriteCounter = 0
                                 else:
+                                    NewCharFile.write(str(item).rjust(20) + " ")
+                                    NewCharFile.write(str(UserCharacter.CharSkills[item]).ljust(5))
                                     WriteCounter += 1
                             NewCharFile.write("\n---------------")
                             NewCharFile.write("\n COMBAT SKILLS")
-                            NewCharFile.write("\n---------------")
-                            for item in sorted(UserCharacter.CharCombatSkills.keys):
+                            NewCharFile.write("\n---------------\n")
+                            for item in sorted(UserCharacter.CharCombatSkills):
                                 if WriteCounter == 2:
+                                    NewCharFile.write(str(item).rjust(20) + " ")
+                                    NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
                                     NewCharFile.write("\n")
                                     WriteCounter = 0
                                 else:
+                                    NewCharFile.write(str(item).rjust(20) + " ")
+                                    NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
                                     WriteCounter += 1
                             NewCharFile.close()
                             cls()
