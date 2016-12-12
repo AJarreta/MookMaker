@@ -39,7 +39,7 @@ while True:
         print "1. Generate a random character."
         print "2. Show last generated character."
         print "3. Delete last generated character."
-        print "4. Save the character in a text file. (IN DEVELOPMENT)"
+        print "4. Save the character in a text file."
         print "5. Load a character from a file. (IN DEVELOPMENT)"
         print "6. Print the character. (IN DEVELOPMENT)"
         print "7. Settings. (IN DEVELOPMENT)"
@@ -285,8 +285,6 @@ while True:
 # IN DEVELOPMENT
 # To complete:
 # -Setting the method to change the working directory
-# -Setting the method to create a new file
-# -Handling exception management
 # --------------------------------------------------------
         elif UserResponse == 4:
             cls()
@@ -311,66 +309,39 @@ while True:
                         if UserResponse == 1:
                             pass
                         elif UserResponse == 2:
-                            CharFileName = DefaultDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
-                            NewCharFile = open(CharFileName, "w")
-                            NewCharFile.write("Name: " + UserCharacter.CharPersonal["Name"])
-                            NewCharFile.write("\nProfession: " + UserCharacter.CharPersonal["Profession"])
-                            NewCharFile.write("\nTitles: " + UserCharacter.CharPersonal["Titles"])
-                            NewCharFile.write("\nAge: " + str(UserCharacter.CharPersonal["Age"]))
-                            NewCharFile.write("\nGender: " + UserCharacter.CharPersonal["Gender"])
-                            NewCharFile.write("\nNationality: " + UserCharacter.CharPersonal["Nationality"])
-                            WriteCounter = 0
-                            NewCharFile.write("\n-----------------")                            
-                            NewCharFile.write("\n CHARACTERISTICS")
-                            NewCharFile.write("\n-----------------\n")
-                            for item in sorted(UserCharacter.CharStats.keys()):
-                                if WriteCounter == 2:
-                                    NewCharFile.write(str(item).rjust(15) + " ")
-                                    NewCharFile.write(str(UserCharacter.CharStats[item]).ljust(10))
-                                    NewCharFile.write("\n")
-                                    WriteCounter = 0
+                            while True:
+                                UserInput = raw_input("Are you sure you want to save the current character in this folder? (yes/ no):")
+                                if not UserInput in ValidInputYes and not UserInput in ValidInputNo:
+                                    cls()
+                                    print "There has been a mistake. Please respond again."
                                 else:
-                                    NewCharFile.write(str(item).rjust(15) + " ")
-                                    NewCharFile.write(str(UserCharacter.CharStats[item]).ljust(10))
-                                    WriteCounter += 1
-                            for item in sorted(UserCharacter.CharDerivedStats):
-                                    NewCharFile.write(str(item).rjust(12) + " ")
-                                    NewCharFile.write(str(UserCharacter.CharDerivedStats[item]).ljust(5))
-                            NewCharFile.write("\n----------------")
-                            NewCharFile.write("\n GENERAL SKILLS")
-                            NewCharFile.write("\n----------------\n")
-                            for item in sorted(UserCharacter.CharSkills):
-                                if WriteCounter == 2:
-                                    NewCharFile.write(str(item).rjust(20) + " ")
-                                    NewCharFile.write(str(UserCharacter.CharSkills[item]).ljust(5))
-                                    NewCharFile.write("\n")
-                                    WriteCounter = 0
-                                else:
-                                    NewCharFile.write(str(item).rjust(20) + " ")
-                                    NewCharFile.write(str(UserCharacter.CharSkills[item]).ljust(5))
-                                    WriteCounter += 1
-                            NewCharFile.write("\n---------------")
-                            NewCharFile.write("\n COMBAT SKILLS")
-                            NewCharFile.write("\n---------------\n")
-                            for item in sorted(UserCharacter.CharCombatSkills):
-                                if WriteCounter == 2:
-                                    NewCharFile.write(str(item).rjust(20) + " ")
-                                    NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
-                                    NewCharFile.write("\n")
-                                    WriteCounter = 0
-                                else:
-                                    NewCharFile.write(str(item).rjust(20) + " ")
-                                    NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
-                                    WriteCounter += 1
-                            NewCharFile.close()
-                            cls()
-                            break
+                                    if UserInput in ValidInputYes:
+                                        CharFileName = DefaultDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
+                                        NewCharFile = open(CharFileName, "w")
+                                        UserCharacter.SaveCharacterInFile(NewCharFile)
+                                        NewCharFile.close()
+                                        cls()
+                                        break
+                                    else:
+                                        cls()
+                                        break
                         elif UserResponse == 3:
                             cls()
                             break
                         else:
                            cls()
                            print "That is not an available option"
+#--------------------
+# IN DEVELOPMENT
+# -Build submenu
+# -Add methods for
+#   1)Add working folder
+#   2)Change working folder
+#   3)Select file from folder
+#   4)Read file
+#   5)Turn raw input from file into data to fill a UserCharacter object with
+# -Handling exceptions
+#--------------------
         elif UserResponse == 5:
             cls()
             pass

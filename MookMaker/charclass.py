@@ -137,7 +137,62 @@ class CthulhuCharacter(object):
             else:
                 print str(item).rjust(20), str(self.CharCombatSkills[item]).ljust(5),
                 PrintCounter += 1
-              
+
+    def SaveCharacterInFile(self, NewCharFile):
+        WriteCounter = 0
+        NewCharFile.write("Name: " + self.CharPersonal["Name"])
+        NewCharFile.write("\nProfession: " + self.CharPersonal["Profession"])
+        NewCharFile.write("\nTitles: " + self.CharPersonal["Titles"])
+        NewCharFile.write("\nAge: " + str(self.CharPersonal["Age"]))
+        NewCharFile.write("\nGender: " + self.CharPersonal["Gender"])
+        NewCharFile.write("\nNationality: " + self.CharPersonal["Nationality"])
+        NewCharFile.write("\n-----------------")                            
+        NewCharFile.write("\n CHARACTERISTICS")
+        NewCharFile.write("\n-----------------\n")
+        for item in sorted(self.CharStats.keys()):
+            if WriteCounter == 2:
+                NewCharFile.write(str(item).rjust(15) + " ")
+                NewCharFile.write(str(self.CharStats[item]).ljust(10))
+                NewCharFile.write("\n")
+                WriteCounter = 0
+            else:
+                NewCharFile.write(str(item).rjust(15) + " ")
+                NewCharFile.write(str(self.CharStats[item]).ljust(10))
+                WriteCounter += 1
+        for item in sorted(UserCharacter.CharDerivedStats):
+            NewCharFile.write(str(item).rjust(12) + " ")
+            NewCharFile.write(str(self.CharDerivedStats[item]).ljust(5))
+        NewCharFile.write("\n----------------")
+        NewCharFile.write("\n GENERAL SKILLS")
+        NewCharFile.write("\n----------------\n")
+        for item in sorted(self.CharSkills.keys()):
+            if WriteCounter == 2:
+                NewCharFile.write(str(item).rjust(20) + " ")
+                NewCharFile.write(str(self.CharSkills[item]).ljust(5))
+                NewCharFile.write("\n")
+                WriteCounter = 0
+            else:
+                NewCharFile.write(str(item).rjust(20) + " ")
+                NewCharFile.write(str(self.CharSkills[item]).ljust(5))
+                WriteCounter += 1
+        NewCharFile.write("\n---------------")
+        NewCharFile.write("\n COMBAT SKILLS")
+        NewCharFile.write("\n---------------\n")
+        for item in sorted(UserCharacter.CharCombatSkills):
+            if WriteCounter == 2:
+                NewCharFile.write(str(item).rjust(20) + " ")
+                NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
+                NewCharFile.write("\n")
+                WriteCounter = 0
+            else:
+                NewCharFile.write(str(item).rjust(20) + " ")
+                NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
+                WriteCounter += 1
+
+    def ReadCharacterFromFile(self, NewCharFile):
+#--------------------
+# IN DEVELOPMENT
+#--------------------
         pass
 
     def ResetCharacter(self):
