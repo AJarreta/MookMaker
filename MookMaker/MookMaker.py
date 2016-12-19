@@ -11,6 +11,7 @@ RandomDataSource = json.load(SourceFile)
 SourceFile.close()
 
 DefaultDirPath = os.getcwd() + "\MookChars"
+CurrentDirPath = DefaultDirPath
 
 while True:
     try:
@@ -21,6 +22,8 @@ while True:
 
 ValidInputYes = ['y', 'Y', 'yes', 'Yes', 'YES']
 ValidInputNo = ['n', 'N', 'no', 'No', 'NO']
+ValidInputBack = ['back', 'Back', 'b', 'B', 'BACK']
+ValidInputReset = ['reset', 'Reset', 'r', 'R', 'RESET']
 ResetSwitch = False
 
 UserCharacter = charclass.CthulhuCharacter(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], RandomDataSource["MaleNames"], \
@@ -47,7 +50,7 @@ while True:
         UserResponse = int(raw_input("Choose an option: "))
     except ValueError:
         cls()
-        print "That is not an available option."
+        print "There has been some sort of mistake. Please try again."
     else:
         if UserResponse == 1:
             while True:
@@ -66,7 +69,7 @@ while True:
                     UserResponse = int(raw_input("Choose an option: "))
                 except ValueError:
                     cls()
-                    print "That is not an available option."
+                    print "There has been some sort of mistake. Please try again."
                 else:
                     if UserResponse == 1:
                         cls()
@@ -258,29 +261,36 @@ while True:
         elif UserResponse == 2:
             cls()
             if type(UserCharacter) == charclass.CthulhuCharacter:
-                print "You have not created any characters yet."
+                print "\nYou have not created any characters yet.\n"
             elif ResetSwitch == True:
-                print "You have currently no created characters."
+                print "\nYou have currently no created characters.\n"
             else:
                 UserCharacter.PrintCharacter()
                 os.system('pause')
                 cls()
         elif UserResponse == 3:
-            while True:
-                UserInput = raw_input("Are you sure you want to delete the current character? (yes/ no):")
-                if not UserInput in ValidInputYes and not UserInput in ValidInputNo:
-                    cls()
-                    print "There has been a mistake. Please respond again."
-                else:
-                    if UserInput in ValidInputYes:
+            cls()
+            if type(UserCharacter) == charclass.CthulhuCharacter:
+                print "\nYou have not created any characters yet.\n"
+            elif ResetSwitch == True:
+                print "\nYou have currently no created characters.\n"
+            else:
+                while True:
+                    UserInput = raw_input("\nAre you sure you want to delete the current character? (yes/ no):")
+                    if not UserInput in ValidInputYes and not UserInput in ValidInputNo:
                         cls()
-                        UserCharacter.ResetCharacter()
-                        ResetSwitch = True
-                        print "The character you created has been deleted."
-                        break
+                        print "There has been some sort of mistake. Please try again."
                     else:
-                        cls()
-                        break
+                        if UserInput in ValidInputYes:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            ResetSwitch = True
+                            print "The character you created has been deleted."
+                            os.system('pause')
+                            break
+                        else:
+                            cls()
+                            break
 # --------------------------------------------------------
 # IN DEVELOPMENT
 # To complete:
@@ -289,34 +299,58 @@ while True:
         elif UserResponse == 4:
             cls()
             if type(UserCharacter) == charclass.CthulhuCharacter:
-                print "You have not created any characters yet."
+                print "\nYou have not created any characters yet.\n"
             elif ResetSwitch == True:
-                print "You have currently no created characters."
+                print "\nYou have currently no created characters.\n"
             else:
                 while True:
                     try:
                         print "-------------------"
                         print " SAVE A CHARACTER"
                         print "-------------------"
-                        print "The character will be saved in:", DefaultDirPath
+                        print "The character will be saved in:", CurrentDirPath
                         print "1. Change the directory path"
                         print "2. Save the character"
                         print "3. Back"
                         UserResponse = int(raw_input("Choose an option: "))
                     except ValueError:
-                        print "That is not an available option"
+                        print "There has been some sort of mistake. Please try again."
                     else:
                         if UserResponse == 1:
-                            pass
+                            while True:
+                                print "\nPlease introduce the new folder below."
+                                print "Introduce the complete directory path, following the formula: C:\\<folder>\\...\\<folder>. This will only work with existing folders"
+                                print "If you wish to go back, type \"back\". If you wish to reset the current path to the default path, type \"reset\"."
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputBack:
+                                    cls()
+                                    break
+                                elif UserInput in ValidInputReset:
+                                    CurrentDirPath = DefaultDirPath
+                                    print "The working directory has been reset to", DefaultDirPath
+                                    os.system('pause')
+                                    cls()
+                                    break
+                                elif os.path.isdir(UserInput) == True:
+                                    CurrentDirPath = UserInput
+                                    print "The working directory has been set to", CurrentDirPath
+                                    os.system('pause')
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                                    UserInput = raw_input(">")
                         elif UserResponse == 2:
                             while True:
                                 UserInput = raw_input("Are you sure you want to save the current character in this folder? (yes/ no):")
                                 if not UserInput in ValidInputYes and not UserInput in ValidInputNo:
                                     cls()
-                                    print "There has been a mistake. Please respond again."
+                                    print "There has been some sort of mistake. Please try again."
                                 else:
                                     if UserInput in ValidInputYes:
-                                        CharFileName = DefaultDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
+                                        if CurrentDirPath.endswith('\\') == True:
+                                            CurrentDirPath = CurrentDirPath[:-1]
+                                        CharFileName = CurrentDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
                                         NewCharFile = open(CharFileName, "w")
                                         UserCharacter.SaveCharacterInFile(NewCharFile)
                                         NewCharFile.close()
@@ -335,8 +369,7 @@ while True:
 # IN DEVELOPMENT
 # -Build submenu
 # -Add methods for
-#   1)Add working folder
-#   2)Change working folder
+#   1)Add and change working folder
 #   3)Select file from folder
 #   4)Read file
 #   5)Turn raw input from file into data to fill a UserCharacter object with
@@ -345,6 +378,16 @@ while True:
         elif UserResponse == 5:
             cls()
             pass
+#--------------------
+# IN DEVELOPMENT
+# -Build submenu
+# -Add methods for
+#   1)Add and change target character file
+#   3)Select printer from system
+#   4)Turn file into data accepted by the printer
+#   5)Print the file
+# -Handling exceptions
+#--------------------
         elif UserResponse == 6:
             cls()
             pass
