@@ -189,12 +189,6 @@ class CthulhuCharacter(object):
                 NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
                 WriteCounter += 1
 
-    def ReadCharacterFromFile(self, NewCharFile):
-#--------------------
-# IN DEVELOPMENT
-#--------------------
-        pass
-
     def ResetCharacter(self):
         self.CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Titles": '', "Nationality": '', "Gender": '', "Income": '', "Savings": ''}
         self.CharStats = {"STR": 0, "CON": 0, "SIZ": 0, \

@@ -35,7 +35,7 @@ while True:
         print "Welcome to MookMaker, the random character generator for The Call of Cthulhu!"
 # add conditional "If" to warn the user there is a created character
         if type(UserCharacter) != charclass.CthulhuCharacter:
-            print "You have created a %s-class character." % str(type(UserCharacter))
+            print "You have created a %s-class character." % UserCharacterClass
         print "------"
         print " MENU"
         print "------"
@@ -72,185 +72,527 @@ while True:
                     print "There has been some sort of mistake. Please try again."
                 else:
                     if UserResponse == 1:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Antiquarian(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Antiquarian(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Antiquarian"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 2:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Athlete(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Athlete(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Athlete"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 3:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.CollegeProfessor(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.CollegeProfessor(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "College Professor"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 4:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Dilettante(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Dilettante(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Dilettante"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 5:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Doctor(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Doctor(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Doctor"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 6:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Drifter(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Drifter(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Drifter"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 7:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Farmer(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Farmer(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Farmer"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 8:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Journalist(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Journalist(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Journalist"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 9:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Gangster(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Gangster(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Gangster"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 10:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Lawyer(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Lawyer(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Lawyer"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 11:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Missionary(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Missionary(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Missionary"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 12:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Parapsychologist(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Parapsychologist(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Parapsychologist"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 13:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Police(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Police(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Police"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 14:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Politician(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Politician(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Politician"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 15:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.PrivateInvestigator(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.PrivateInvestigator(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Private Investigator"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 16:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Revolutionary(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Revolutionary(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Revolutionary"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 17:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Soldier(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Soldier(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Soldier"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 18:
-                        cls()
-                        UserCharacter.ResetCharacter()
-                        UserCharacter = charclass.Writer(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
+                        if type(UserCharacter) != charclass.CthulhuCharacter:
+                            print "You have already created a character. Do you want to overwrite it? (y/n):"
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputYes:
+                                    SwitchMenuOption = 1
+                                    break
+                                elif UserInput in ValidInputNo:
+                                    SwitchMenuOption = 0
+                                    cls()
+                                    break
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        else:
+                            SwitchMenuOption = 1
+                        if SwitchMenuOption == 1:
+                            cls()
+                            UserCharacter.ResetCharacter()
+                            UserCharacter = charclass.Writer(RandomDataSource["Nationalities"], RandomDataSource["FemaleNames"], \
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
-                        UserCharacter.CharacterGenerator()
-                        UserCharacter.PrintCharacter()
-                        ResetSwitch = False
-                        os.system('pause')
+                            UserCharacter.CharacterGenerator()
+                            UserCharacter.PrintCharacter()
+                            UserCharacterClass = "Writer"
+                            ResetSwitch = False
+                            os.system('pause')
+                        else:
+                            break
                     elif UserResponse == 19:
                         cls()
                         break
@@ -331,7 +673,9 @@ while True:
                                     os.system('pause')
                                     cls()
                                     break
-                                elif os.path.isdir(UserInput) == True:
+                                elif os.path.exists(UserInput) == True:
+
+                                    
                                     CurrentDirPath = UserInput
                                     print "The working directory has been set to", CurrentDirPath
                                     os.system('pause')
@@ -339,7 +683,6 @@ while True:
                                     break
                                 else:
                                     print "There has been some sort of mistake. Please try again."
-                                    UserInput = raw_input(">")
                         elif UserResponse == 2:
                             while True:
                                 UserInput = raw_input("Are you sure you want to save the current character in this folder? (yes/ no):")
@@ -377,6 +720,28 @@ while True:
 #--------------------
         elif UserResponse == 5:
             cls()
+            while True:
+                try:
+                    print "-------------------"
+                    print " LOAD A CHARACTER"
+                    print "-------------------"
+                    print "The character will be loaded from:", CurrentDirPath
+                    print "1. Change the directory path"
+                    print "2. Load the character"
+                    print "3. Back"
+                    UserInput = raw_input("Choose an option:")
+                except ValueError:
+                    print "There has been some sort of mistake. Please try again."
+                else:
+                    if UserInput == 1:
+                        NewCharFile.re
+                        pass
+                    elif UserInput == 2:
+                        pass
+                    elif UserInput == 3:
+                        pass
+                    else:
+                        break
             pass
 #--------------------
 # IN DEVELOPMENT
