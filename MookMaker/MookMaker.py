@@ -599,7 +599,8 @@ while True:
                     else:
                         cls()
                         print "That is not an available option."
-                        pass    
+                        pass  
+  
         elif UserResponse == 2:
             cls()
             if type(UserCharacter) == charclass.CthulhuCharacter:
@@ -610,6 +611,7 @@ while True:
                 UserCharacter.PrintCharacter()
                 os.system('pause')
                 cls()
+
         elif UserResponse == 3:
             cls()
             if type(UserCharacter) == charclass.CthulhuCharacter:
@@ -633,11 +635,13 @@ while True:
                         else:
                             cls()
                             break
+
 # --------------------------------------------------------
 # IN DEVELOPMENT
 # To complete:
 # -Setting the method to change the working directory
 # --------------------------------------------------------
+
         elif UserResponse == 4:
             cls()
             if type(UserCharacter) == charclass.CthulhuCharacter:
@@ -674,8 +678,6 @@ while True:
                                     cls()
                                     break
                                 elif os.path.exists(UserInput) == True:
-
-                                    
                                     CurrentDirPath = UserInput
                                     print "The working directory has been set to", CurrentDirPath
                                     os.system('pause')
@@ -693,10 +695,14 @@ while True:
                                     if UserInput in ValidInputYes:
                                         if CurrentDirPath.endswith('\\') == True:
                                             CurrentDirPath = CurrentDirPath[:-1]
-                                        CharFileName = CurrentDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
-                                        NewCharFile = open(CharFileName, "w")
-                                        UserCharacter.SaveCharacterInFile(NewCharFile)
+                                        CharPrintFileName = CurrentDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
+                                        CharJSOnFileName = CurrentDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".json"
+                                        NewCharFile = open(CharPrintFileName, "w")
+                                        NewJSONFile = open(CharJSOnFileName, "w")
+                                        UserCharacter.SaveCharacterInPrintFile(NewCharFile)
+                                        UserCharacter.SaveCharacterInJSON(NewJSONFile)
                                         NewCharFile.close()
+                                        NewJSONFile.close()
                                         cls()
                                         break
                                     else:

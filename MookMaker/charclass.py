@@ -1,5 +1,6 @@
 import random
 import math
+import json
 
 class CthulhuCharacter(object):
 
@@ -138,7 +139,7 @@ class CthulhuCharacter(object):
                 print str(item).rjust(20), str(self.CharCombatSkills[item]).ljust(5),
                 PrintCounter += 1
 
-    def SaveCharacterInFile(self, NewCharFile):
+    def SaveCharacterInPrintFile(self, NewCharFile):
         WriteCounter = 0
         NewCharFile.write("Name: " + self.CharPersonal["Name"])
         NewCharFile.write("\nProfession: " + self.CharPersonal["Profession"])
@@ -159,7 +160,7 @@ class CthulhuCharacter(object):
                 NewCharFile.write(str(item).rjust(15) + " ")
                 NewCharFile.write(str(self.CharStats[item]).ljust(10))
                 WriteCounter += 1
-        for item in sorted(UserCharacter.CharDerivedStats):
+        for item in sorted(self.CharDerivedStats):
             NewCharFile.write(str(item).rjust(12) + " ")
             NewCharFile.write(str(self.CharDerivedStats[item]).ljust(5))
         NewCharFile.write("\n----------------")
@@ -178,16 +179,23 @@ class CthulhuCharacter(object):
         NewCharFile.write("\n---------------")
         NewCharFile.write("\n COMBAT SKILLS")
         NewCharFile.write("\n---------------\n")
-        for item in sorted(UserCharacter.CharCombatSkills):
+        for item in sorted(self.CharCombatSkills):
             if WriteCounter == 2:
                 NewCharFile.write(str(item).rjust(20) + " ")
-                NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
+                NewCharFile.write(str(self.CharCombatSkills[item]).ljust(5))
                 NewCharFile.write("\n")
                 WriteCounter = 0
             else:
                 NewCharFile.write(str(item).rjust(20) + " ")
-                NewCharFile.write(str(UserCharacter.CharCombatSkills[item]).ljust(5))
+                NewCharFile.write(str(self.CharCombatSkills[item]).ljust(5))
                 WriteCounter += 1
+
+    def SaveCharacterInJSON(self, NewJSONFile):
+        json.dump({"Personal" : self.CharPersonal, "Stats" : self.CharStats, "Derived Stats" : self.CharDerivedStats, "Skills" : self.CharSkills, "Combat Skills" : self.CharCombatSkills}, NewJSONFile, sort_keys=True, indent=4, separators=(",", ":"))
+
+    def ReadCharacterfromFile(self, NewJSONFile):
+        self.CharPersonal = json.loads(NewJSONFile["Personal"])
+        
 
     def ResetCharacter(self):
         self.CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Titles": '', "Nationality": '', "Gender": '', "Income": '', "Savings": ''}
