@@ -191,11 +191,15 @@ class CthulhuCharacter(object):
                 WriteCounter += 1
 
     def SaveCharacterInJSON(self, NewJSONFile):
-        json.dump({"Personal" : self.CharPersonal, "Stats" : self.CharStats, "Derived Stats" : self.CharDerivedStats, "Skills" : self.CharSkills, "Combat Skills" : self.CharCombatSkills}, NewJSONFile, sort_keys=True, indent=4, separators=(",", ":"))
+        json.dump({"Personal" : self.CharPersonal, "Stats" : self.CharStats, "Derived Stats" : self.CharDerivedStats, "Skills" : self.CharSkills, \
+                  "Combat Skills" : self.CharCombatSkills}, NewJSONFile, sort_keys=True, indent=4, separators=(",", ":"))
 
     def ReadCharacterfromFile(self, NewJSONFile):
         self.CharPersonal = json.loads(NewJSONFile["Personal"])
-        
+        self.CharStats = json.loads(NewJSONFile["Stats"])
+        self.CharDerivedStats = json.loads(NewJSONFile["Derived Stats"])
+        self.CharSkills = json.loads(NewJSONFile["Skills"])
+        self.CharCombatSkills = json.loads(NewJSONFile["Combat Skills"])
 
     def ResetCharacter(self):
         self.CharPersonal = {"Name": '', "Age": 0, "Profession": '', "Titles": '', "Nationality": '', "Gender": '', "Income": '', "Savings": ''}
