@@ -77,9 +77,11 @@ while True:
                     print "Choose an option:"
                     UserResponse = int(raw_input(">"))
                 except ValueError:
+                    cls()
                     print "There has been some sort of mistake. Please try again."
                 else:
-                    if not UserResponse in range(1, 20):
+                    if not UserResponse in range(1, 19):
+                        cls()
                         print "There has been some sort of mistake. Please try again."
                     if UserResponse == 19:
                         cls()
@@ -189,9 +191,6 @@ while True:
                                         RandomDataSource["MaleNames"], RandomDataSource["Surnames"], RandomDataSource["Nationalities"], \
                                         RandomDataSource["Languages"], RandomDataSource["Arts"])
                             UserCharacterClass = "Writer"
-                        else:
-                            cls()
-                            print "\nThere has been some sort of mistake. Please try again.\n"
                         UserCharacter.CharacterGenerator()
                         UserCharacter.PrintCharacter()
                         StatusTracker = 1
@@ -248,75 +247,81 @@ while True:
             elif StatusTracker == 2:
                 print "\nYou have currently no created characters.\n"
             else:
-                    print "-------------------"
-                    print " SAVE A CHARACTER"
-                    print "-------------------"
-                    print "The character will be saved in:", CurrentDirPath
-                    print "1. Change the directory path"
-                    print "2. Save the character"
-                    print "3. Back"
-                    print "Choose an option: "
-                    while True:
-                        try:
-                            UserResponse = int(raw_input(">"))
-                        except ValueError:
+                while True:
+                    try:
+                        print "-------------------"
+                        print " SAVE A CHARACTER"
+                        print "-------------------"
+                        print "The character will be saved in:", CurrentDirPath
+                        print "1. Change the directory path"
+                        print "2. Save the character"
+                        print "3. Back"
+                        print "Choose an option: "
+                        UserResponse = int(raw_input(">"))
+                    except ValueError:
+                            cls()
                             print "There has been some sort of mistake. Please try again."
-                        else:
-                            if UserResponse == 1:
-                                print "\nPlease introduce the new folder below."
-                                print "Introduce the complete directory path, following the formula: C:\\<folder>\\...\\<folder>. This will only work with existing folders"
-                                print "If you wish to go back, type \"back\". If you wish to reset the current path to the default path, type \"reset\"."
-                                while True:
-                                    UserInput = raw_input(">")
-                                    if UserInput in ValidInputBack:
-                                        cls()
-                                        break
-                                    elif UserInput in ValidInputReset:
-                                        CurrentDirPath = DefaultDirPath
-                                        print "The working directory has been reset to", DefaultDirPath
+                    else:
+                        if UserResponse == 1:
+                            print "\nPlease introduce the new folder below."
+                            print "Introduce the complete directory path, following the formula: C:\\<folder>\\...\\<folder>. This will only work with existing folders"
+                            print "If you wish to go back, type \"back\". If you wish to reset the current path to the default path, type \"reset\"."
+                            while True:
+                                UserInput = raw_input(">")
+                                if UserInput in ValidInputBack:
+                                    cls()
+                                    break
+                                elif UserInput in ValidInputReset:
+                                    CurrentDirPath = DefaultDirPath
+                                    print "The working directory has been reset to", DefaultDirPath
+                                    os.system('pause')
+                                    cls()
+                                    break
+                                elif os.path.isdir(UserInput) == True:
+                                    if os.access(UserInput, os.W_OK) == False:
+                                        print "You don't have permission to save a file in that folder. Please try another one."
+                                    else:
+                                        CurrentDirPath = UserInput
+                                        print "The working directory has been set to", CurrentDirPath
                                         os.system('pause')
                                         cls()
                                         break
-                                    elif os.path.isdir(UserInput) == True:
-                                        if os.access(UserInput, os.W_OK) == False:
-                                            print "You don't have permission to save a file in that folder. Please try another one."
-                                        else:
-                                            CurrentDirPath = UserInput
-                                            print "The working directory has been set to", CurrentDirPath
-                                            os.system('pause')
-                                            cls()
-                                            break
-                                    else:
-                                        print "There has been some sort of mistake. Please try again."
-                            elif UserResponse == 2:
-                                while True:
-                                    UserInput = raw_input("Are you sure you want to save the current character in this folder? (yes/ no):")
-                                    if not UserInput in ValidInputYes and not UserInput in ValidInputNo:
+                                else:
+                                    print "There has been some sort of mistake. Please try again."
+                        elif UserResponse == 2:
+                            while True:
+                                UserInput = raw_input("Are you sure you want to save the current character in this folder? (yes/ no):")
+                                if not UserInput in ValidInputYes and not UserInput in ValidInputNo:
+                                    cls()
+                                    print "There has been some sort of mistake. Please try again."
+                                else:
+                                    if UserInput in ValidInputYes:
+                                        if CurrentDirPath.endswith('\\') == True:
+                                            CurrentDirPath = CurrentDirPath[:-1]
+                                        CharPrintFileName = CurrentDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
+                                        CharJSOnFileName = CurrentDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".json"
+                                        DefaultPrint = DefaultDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
+                                        DefaultJSON =  DefaultDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".json"
+                                        print CharPrintFileName, CharJSOnFileName
+                                        print Defaultprint, DefaultJSON
+                                        os.system('pause')
+                                        NewCharFile = open(CharPrintFileName, "w")
+                                        NewJSONFile = open(CharJSOnFileName, "w")
+                                        UserCharacter.SaveCharacterInPrintFile(NewCharFile)
+                                        UserCharacter.SaveCharacterInJSON(NewJSONFile)
+                                        NewCharFile.close()
+                                        NewJSONFile.close()
                                         cls()
-                                        print "There has been some sort of mistake. Please try again."
+                                        break
                                     else:
-                                        if UserInput in ValidInputYes:
-                                            if CurrentDirPath.endswith('\\') == True:
-                                                CurrentDirPath = CurrentDirPath[:-1]
-                                            CharPrintFileName = CurrentDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".txt"
-                                            CharJSOnFileName = CurrentDirPath + "\\" + UserCharacter.CharPersonal["Name"] + ".json"
-                                            NewCharFile = open(CharPrintFileName, "w")
-                                            NewJSONFile = open(CharJSOnFileName, "w")
-                                            UserCharacter.SaveCharacterInPrintFile(NewCharFile)
-                                            UserCharacter.SaveCharacterInJSON(NewJSONFile)
-                                            NewCharFile.close()
-                                            NewJSONFile.close()
-                                            cls()
-                                            break
-                                        else:
-                                            cls()
-                                            break
-                            elif UserResponse == 3:
-                                cls()
-                                break
-                            else:
-                               cls()
-                               print "\nThat is not an available option\n"
+                                        cls()
+                                        break
+                        elif UserResponse == 3:
+                            cls()
+                            break
+                        else:
+                            cls()
+                            print "\nThat is not an available option\n"
 #--------------------
 # IN DEVELOPMENT
 # -Build submenu
@@ -338,15 +343,15 @@ while True:
                     print "1. Change the directory path"
                     print "2. Load the character"
                     print "3. Back"
-                    UserInput = raw_input("Choose an option:")
+                    UserInput = int(raw_input("Choose an option:"))
                 except ValueError:
                     print "There has been some sort of mistake. Please try again."
                 else:
                     if UserInput == 1:
-                        while True:
-                                print "\nPlease introduce the new folder below."
-                                print "Introduce the complete directory path, following the formula: C:\\<folder>\\...\\<folder>. This will only work with existing folders"
-                                print "If you wish to go back, type \"back\". If you wish to reset the current path to the default path, type \"reset\"."
+                            print "\nPlease introduce the new folder below."
+                            print "Introduce the complete directory path, following the formula: C:\\<folder>\\...\\<folder>. This will only work with existing folders"
+                            print "If you wish to go back, type \"back\". If you wish to reset the current path to the default path, type \"reset\"."
+                            while True:
                                 UserInput = raw_input(">")
                                 if UserInput in ValidInputBack:
                                     cls()
@@ -358,15 +363,82 @@ while True:
                                     cls()
                                     break
                                 elif os.path.isdir(UserInput) == True:
-                                    CurrentDirPath = UserInput
-                                    print "The working directory has been set to", CurrentDirPath
-                                    os.system('pause')
-                                    cls()
-                                    break
+                                    if os.access(UserInput, os.R_OK) == False:
+                                        print "You don't have permission to load a file from that folder. Please try another one."
+                                    else:
+                                        CurrentDirPath = UserInput
+                                        print "The working directory has been set to", CurrentDirPath
+                                        os.system('pause')
+                                        cls()
+                                        break
                                 else:
                                     print "There has been some sort of mistake. Please try again."
                     elif UserInput == 2:
-                        pass
+                        cls()
+                        CurrentFiles = os.listdir(CurrentDirPath)
+                        print "The files in the current working directory are:"
+                        x = 0
+                        for files in CurrentFiles:
+                            print CurrentFiles[x], "\n"
+                            x += 1
+                        print "Which file do you desire to load? (Type \"back\" to return to the previous menu)"
+                        while True:
+                            try:
+                                UserResponse = raw_input(">")
+                                if UserResponse in ValidInputBack:
+                                    cls()
+                                    break
+                                elif not UserResponse in CurrentFiles:
+                                    print "There has been some sort of mistake. Please try again."
+                                else:
+                                    CharJSOnFileName = CurrentDirPath + "\\" + UserResponse
+                                    NewJSONFile = open(CharJSOnFileName, "r")
+                                    CharClass = json.loads(NewJSONFile[CharPersonal[Profession]])
+                                    print CharClass
+                                    if CharClass == "Antiquarian":
+                                        UserCharacter = charclass.Antiquarian.CharacterGenerator
+                                    elif CharClass == "Athlete":
+                                        UserCharacter = charclass.Athlete.CharacterGenerator
+                                    elif CharClass == "College Professor":
+                                        UserCharacter = charclass.CollegeProfessor.CharacterGenerator
+                                    elif CharClass == "Dilettante":
+                                        UserCharacter = charclass.Dilettante.CharacterGenerator
+                                    elif CharClass == "Doctor":
+                                        UserCharacter = charclass.Doctor.CharacterGenerator 
+                                    elif CharClass == "Drifter":
+                                        UserCharacter = charclass.Drifter.CharacterGenerator
+                                    elif CharClass == "Farmer":
+                                        UserCharacter = charclass.Farmer.CharacterGenerator
+                                    elif CharClass == "Gangster":
+                                        UserCharacter = charclass.Gangster.CharacterGenerator 
+                                    elif CharClass == "Journalist":
+                                        UserCharacter = charclass.Journalist.CharacterGenerator  
+                                    elif CharClass == "Lawyer":
+                                        UserCharacter = charclass.Lawyer.CharacterGenerator   
+                                    elif CharClass == "Missionary":
+                                        UserCharacter = charclass.Missionary.CharacterGenerator
+                                    elif CharClass == "Parapsychologist":
+                                        UserCharacter = charclass.Parapsychologist.CharacterGenerator
+                                    elif CharClass == "Police":
+                                        UserCharacter = charclass.Police.CharacterGenerator
+                                    elif CharClass == "Politician":
+                                        UserCharacter = charclass.Politician.CharacterGenerator
+                                    elif CharClass == "Private Investigator":
+                                        UserCharacter = charclass.PrivateInvestigator.CharacterGenerator
+                                    elif CharClass == "Revolutionary":
+                                        UserCharacter = charclass.Revolutionary.CharacterGenerator
+                                    elif CharClass == "Soldier":
+                                        UserCharacter = charclass.Soldier.CharacterGenerator
+                                    elif CharClass == "Writer":
+                                        UserCharacter = charclass.Writer.CharacterGenerator
+                                    else:
+# Maybe force a ValueError to cause a loop?
+                                        pass 
+                                    UserCharacter.ReadCharacterfromFile(NewJSONFile)
+                                    UserCharacter.PrintCharacter()
+                                    os.system('pause')
+                            except ValueError:
+                                print "There has been some sort of mistake. Please try again."                             
                     elif UserInput == 3:
                         cls()
                         break
